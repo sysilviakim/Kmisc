@@ -1,4 +1,4 @@
 library(testthat)
-library(sskimMisc)
+library(Kmisc)
 
-test_check("sskimMisc")
+test_check("Kmisc")
