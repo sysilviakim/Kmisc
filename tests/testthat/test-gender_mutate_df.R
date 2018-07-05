@@ -1,5 +1,4 @@
 context("Gender Inference")
-library(sskimMisc)
 
 test_that("Known names are successfully classified as male/female", {
   df <- data.frame(NameFirst = c("Madison", "Nimrodel", "Michael"),
