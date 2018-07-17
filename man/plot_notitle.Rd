@@ -11,7 +11,7 @@ plot_notitle(p)
 }
 \description{
 This is a function that strips the plot of all its titles,
-including axis titles.
+including axis titles and legend titles.
 }
 \examples{
 library(ggplot2)

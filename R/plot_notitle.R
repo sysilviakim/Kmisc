@@ -1,7 +1,8 @@
 #' No Title Plots
 #'
 #' This is a function that strips the plot of all its titles,
-#' including axis titles.
+#' including axis titles and legend titles.
+#'
 #' @import ggplot2
 #' @param p The plot that we will strip its titles of.
 #' @examples
@@ -17,7 +18,7 @@ plot_notitle <- function(p) {
       ggplot2::theme(
         axis.title.x = ggplot2::element_blank(),
         axis.title.y = ggplot2::element_blank(),
-        plot.title   = ggplot2::element_blank()
+        plot.title   = ggplot2::element_blank(),
         legend.title = ggplot2::element_blank()
       )
   )
