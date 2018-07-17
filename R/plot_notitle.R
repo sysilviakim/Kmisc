@@ -18,6 +18,7 @@ plot_notitle <- function(p) {
         axis.title.x = ggplot2::element_blank(),
         axis.title.y = ggplot2::element_blank(),
         plot.title   = ggplot2::element_blank()
+        legend.title = ggplot2::element_blank()
       )
   )
 }

@@ -21,6 +21,7 @@ png_default <- function(p, OfficinaSans = NULL) {
       grDevices::windowsFonts(
         OfficinaSans = grDevices::windowsFont("OfficinaSanITCBoo")
       )
+      OfficinaSans = "OfficinaSans"
     } else {
       stop("Please specify a OfficinaSans to be used.")
     }

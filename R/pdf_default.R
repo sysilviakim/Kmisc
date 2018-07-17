@@ -2,6 +2,8 @@
 #'
 #' This function implements my *personal* favorite setup for article pdfs.
 #' This does not currenty contain details on colors.
+#' Note that the CM Roman font will not show immediately when called in the
+#' Rstudio plot pane, but will be correctly input in the resulting pdf file.
 
 #' @import fontcm
 #' @import extrafont
