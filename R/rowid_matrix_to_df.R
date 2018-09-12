@@ -11,9 +11,17 @@
 #' @export
 
 rowid_matrix_to_df <- function(x, colname = "rownames") {
-  rownames <- rownames(x)
-  x <- dplyr::as_data_frame(x)
-  x[[colname]] <- rownames
-  x <- x %>% dplyr::select(!!as.name(colname), dplyr::everything())
-  return(x)
+  temp <- function(x, colnames) {
+    rownames <- rownames(x)
+    x <- dplyr::as_data_frame(x)
+    x[[colname]] <- rownames
+    x <- x %>% dplyr::select(!!as.name(colname), dplyr::everything())
+    return(x)
+  }
+  if (is.list(x)) {
+    output <- lapply(x, function(y) temp(y, colname))
+    return(output)
+  } else {
+    return(temp(x, colnames))
+  }
 }
