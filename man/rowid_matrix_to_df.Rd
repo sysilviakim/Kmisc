@@ -7,12 +7,13 @@
 rowid_matrix_to_df(x, colname = "rownames")
 }
 \arguments{
-\item{x}{The matrix with row IDs to be converted to a dataframe}
+\item{x}{The object(s) with row IDs to be converted to dataframes}
 
 \item{colname}{The column name that will contain the row names}
 }
 \description{
-Similar to tibble::rowid_to_column but also converting matrix to dataframe
+Similar to tibble::rowid_to_column but also converting matrix to dataframe.
+It can also take lists of matrix/dataframes.
 }
 \examples{
 mdat <- matrix(c(1, 2, "A", "B"), nrow = 2, ncol = 2, byrow = TRUE,
