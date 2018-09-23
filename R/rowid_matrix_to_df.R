@@ -20,7 +20,7 @@ rowid_matrix_to_df <- function(x, colname = "rownames") {
     x <- x %>% dplyr::select(!!as.name(colname), dplyr::everything())
     return(x)
   }
-  if (is.list(x)) {
+  if ("list" %in% class(x)) {
     output <- lapply(x, function(y) temp(y, colname))
     return(output)
   } else {
