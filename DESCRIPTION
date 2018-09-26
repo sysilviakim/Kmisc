@@ -10,5 +10,18 @@ Encoding: UTF-8
 LazyData: true
 Suggests: testthat
 RoxygenNote: 6.1.0
-Imports: stats, rlang, dplyr, fontcm, extrafont, ggplot2, ggthemes, gender, genderdata, grid, gridExtra, grDevices
+Imports:
+  stats, 
+  rlang, 
+  dplyr, 
+  fontcm, 
+  extrafont,
+  ggplot2, 
+  ggthemes, 
+  gender, 
+  genderdata, 
+  grid, 
+  gridExtra, 
+  grDevices,
+  scales
 Remotes: ropensci/genderdata
