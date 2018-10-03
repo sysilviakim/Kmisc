@@ -3,6 +3,7 @@
 export(Mode)
 export(gender_mutate_df)
 export(grid_arrange_shared_legend)
+export(nan_replace)
 export(pdf_default)
 export(plot_nolegend)
 export(plot_notitle)
