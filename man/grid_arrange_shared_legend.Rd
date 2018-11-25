@@ -5,7 +5,7 @@
 \title{Common-Legend Arrangement of Plots}
 \usage{
 grid_arrange_shared_legend(..., ncol = length(list(...)), nrow = 1,
-  position = c("bottom", "right"), legend = NULL)
+  position = c("bottom", "right"), legend = NULL, legend_plot = NULL)
 }
 \arguments{
 \item{...}{A series of plots to share a common legend}
@@ -17,6 +17,9 @@ grid_arrange_shared_legend(..., ncol = length(list(...)), nrow = 1,
 \item{position}{Position of the legend}
 
 \item{legend}{If legend is supplied from outside. Defaults to NULL.}
+
+\item{legend_plot}{If plot to pull the legend from is supplied from outside.
+Defaults to NULL.}
 }
 \description{
 This function creates a common legend for the given pots to share

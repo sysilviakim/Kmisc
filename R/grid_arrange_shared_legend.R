@@ -12,18 +12,25 @@
 #' @param nrow Number of rows of the arranged plots
 #' @param position Position of the legend
 #' @param legend If legend is supplied from outside. Defaults to NULL.
+#' @param legend_plot If plot to pull the legend from is supplied from outside.
+#' Defaults to NULL.
 #' @export
 
 grid_arrange_shared_legend <- function(...,
                                        ncol = length(list(...)),
                                        nrow = 1,
                                        position = c("bottom", "right"),
-                                       legend = NULL) {
+                                       legend = NULL,
+                                       legend_plot = NULL) {
   plots <- list(...)
   position <- match.arg(position)
   g <-
     ggplot2::ggplotGrob(plots[[1]] + theme(legend.position = position))$grobs
-  if (is.null(legend)) {
+  if (!is.null(legend_plot)) {
+    g <-
+      ggplot2::ggplotGrob(legend_plot + theme(legend.position = position))$grobs
+  }
+  if (is.null(legend) | !is.null(legend_plot)) {
     legend <- g[[which(sapply(g, function(x) x$name) == "guide-box")]]
   }
   lheight <- sum(legend$height)
