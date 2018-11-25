@@ -11,17 +11,21 @@
 #' @param ncol Number of columns of the arranged plots
 #' @param nrow Number of rows of the arranged plots
 #' @param position Position of the legend
+#' @param legend If legend is supplied from outside. Defaults to NULL.
 #' @export
 
 grid_arrange_shared_legend <- function(...,
                                        ncol = length(list(...)),
                                        nrow = 1,
-                                       position = c("bottom", "right")) {
+                                       position = c("bottom", "right"),
+                                       legend = NULL) {
   plots <- list(...)
   position <- match.arg(position)
   g <-
     ggplot2::ggplotGrob(plots[[1]] + theme(legend.position = position))$grobs
-  legend <- g[[which(sapply(g, function(x) x$name) == "guide-box")]]
+  if (is.null(legend)) {
+    legend <- g[[which(sapply(g, function(x) x$name) == "guide-box")]]
+  }
   lheight <- sum(legend$height)
   lwidth <- sum(legend$width)
   gl <- lapply(plots, function(x) x + theme(legend.position = "none"))
@@ -31,12 +35,12 @@ grid_arrange_shared_legend <- function(...,
     "bottom" = gridExtra::arrangeGrob(
       do.call(gridExtra::arrangeGrob, gl), legend,
       ncol = 1,
-      heights = unit.c(unit(1, "npc") - lheight, lheight)
+      heights = grid::unit.c(unit(1, "npc") - lheight, lheight)
     ),
     "right" = gridExtra::arrangeGrob(
       do.call(gridExtra::arrangeGrob, gl), legend,
       ncol = 2,
-      widths = unit.c(unit(1, "npc") - lwidth, lwidth)
+      widths = grid::unit.c(unit(1, "npc") - lwidth, lwidth)
     )
   )
   grid::grid.newpage()

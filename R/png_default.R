@@ -23,7 +23,7 @@ png_default <- function(p, OfficinaSans = NULL) {
     extrafont::loadfonts(device = "win")
   }
   if (is.null(OfficinaSans)) {
-    OfficinaSans <- "Verdana" ## Free substitute
+    OfficinaSans <- "Arial" ## Free substitute
   } else if (OfficinaSans == "OfficinaSans" &
     Sys.info()["sysname"] == "Windows") {
     grDevices::windowsFonts(
