@@ -26,5 +26,6 @@ Imports:
   grid, 
   gridExtra, 
   grDevices,
-  scales
+  scales,
+  data.tree
 Remotes: ropensci/genderdata
