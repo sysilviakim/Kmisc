@@ -10,41 +10,54 @@
 
 #' @import dplyr
 #' @importFrom lubridate parse_date_time
-#' @import stringr
-#' @param df Dataframe to be cleaned
-#' @param varnames All variables to be cleaned
-#' @param varnames_date Date variables
-#' @param date_order Order of the date variable, if string format
-#' @param varnames_num Numeric variables
-#' @param firstname Variable containing first names
-#' @param prefix Variable containing self-reported personal prefixes
-#' @param gender_original Variable containing original gender entry
+#' @importFrom stringi stri_trans_general
+#' @importFrom stringr str_split_fixed
+#' @importFrom stringr fixed
+#'
+#' @param df Dataframe to be cleaned.
+#' @param varnames All variables to be cleaned.
+#' Defaults to NULL.
+#' @param varnames_date Date variables.
+#' Defaults to NULL.
+#' @param date_order Order of the date variable, if string format.
+#' Defaults to "mdy".
+#' @param varnames_num Numeric variables.
+#' Defaults to NULL.
+#' @param firstname Variable containing first names.
+#' Defaults to NULL.
+#' @param prefix Variable containing self-reported personal prefixes.
+#' Defaults to NULL.
+#' @param prefix_male Value that indicates male in the prefix variable.
+#' Defaults to "mr" (the input will be lowercased before comparison.)
+#' @param gender_original Variable containing original gender entry.
+#' Defaults to NULL.
+#' @param gender_male Value that indicates male in the original gender entry.
+#' Defaults to "m" (the input will be lowercased before comparison.)
 
 #' @export
 
-clean_vars <- function(df = NULL,
+clean_vars <- function(df,
                        varnames = NULL,
                        varnames_date = NULL,
                        date_order = "mdy",
                        varnames_num = NULL,
                        firstname = NULL,
                        prefix = NULL,
-                       gender_original = NULL) {
+                       prefix_male = "mr",
+                       gender_original = NULL,
+                       gender_male = "m") {
   . <- proportion_female <- year_min <- year_max <- NULL
   output <- df
   if (!is.null(setdiff(varnames, varnames_date)) &
     length(setdiff(varnames, varnames_date)) > 0) {
     for (x in setdiff(varnames, varnames_date)) {
+      ## ASCII conversion rather than deletion
+      ## So no longer gsub("[^ -~]", "", tolower(output[[x]]))
+      output[[x]] <- stri_trans_general(tolower(output[[x]]), "latin-ascii")
       output[[x]] <-
         gsub(
           "[ \t]{2,}", " ",
-          gsub(
-            "^\\s+|\\s+$", "",
-            gsub(
-              "[[:punct:]]", " ",
-              gsub("[^ -~]", "", tolower(output[[x]]))
-            )
-          )
+          gsub("^\\s+|\\s+$", "", gsub("[[:punct:]]", " ", output[[x]]))
         )
     }
   }
@@ -53,7 +66,7 @@ clean_vars <- function(df = NULL,
       output[[x]] <-
         as.numeric(gsub(
           "[^[:digit:]]", "",
-          stringr::str_split_fixed(output[[x]], stringr::fixed(" "), 2)[, 1]
+          str_split_fixed(output[[x]], fixed(" "), 2)[, 1]
         ))
     }
   }
@@ -73,14 +86,14 @@ clean_vars <- function(df = NULL,
   }
   if (!is.null(prefix)) {
     output$gender <- ifelse(
-      (!is.na(output[[prefix]]) & tolower(output[[prefix]]) == "mr"),
+      (!is.na(output[[prefix]]) & tolower(output[[prefix]]) == prefix_male),
       "male", output$gender
     )
   }
   if (!is.null(prefix)) {
     output$gender <- ifelse(
       (!is.na(output[[gender_original]]) &
-        tolower(output[[gender_original]]) == "m"),
+        tolower(output[[gender_original]]) == gender_male),
       "male", output$gender
     )
   }

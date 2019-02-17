@@ -4,26 +4,40 @@
 \alias{clean_vars}
 \title{Variable Cleaning}
 \usage{
-clean_vars(df = NULL, varnames = NULL, varnames_date = NULL,
+clean_vars(df, varnames = NULL, varnames_date = NULL,
   date_order = "mdy", varnames_num = NULL, firstname = NULL,
-  prefix = NULL, gender_original = NULL)
+  prefix = NULL, prefix_male = "mr", gender_original = NULL,
+  gender_male = "m")
 }
 \arguments{
-\item{df}{Dataframe to be cleaned}
+\item{df}{Dataframe to be cleaned.}
 
-\item{varnames}{All variables to be cleaned}
+\item{varnames}{All variables to be cleaned.
+Defaults to NULL.}
 
-\item{varnames_date}{Date variables}
+\item{varnames_date}{Date variables.
+Defaults to NULL.}
 
-\item{date_order}{Order of the date variable, if string format}
+\item{date_order}{Order of the date variable, if string format.
+Defaults to "mdy".}
 
-\item{varnames_num}{Numeric variables}
+\item{varnames_num}{Numeric variables.
+Defaults to NULL.}
 
-\item{firstname}{Variable containing first names}
+\item{firstname}{Variable containing first names.
+Defaults to NULL.}
 
-\item{prefix}{Variable containing self-reported personal prefixes}
+\item{prefix}{Variable containing self-reported personal prefixes.
+Defaults to NULL.}
 
-\item{gender_original}{Variable containing original gender entry}
+\item{prefix_male}{Value that indicates male in the prefix variable.
+Defaults to "mr" (the input will be lowercased before comparison.)}
+
+\item{gender_original}{Variable containing original gender entry.
+Defaults to NULL.}
+
+\item{gender_male}{Value that indicates male in the original gender entry.
+Defaults to "m" (the input will be lowercased before comparison.)}
 }
 \description{
 This function takes a dataframe and performs a variety of cleaning.

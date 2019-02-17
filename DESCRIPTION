@@ -17,6 +17,7 @@ Imports:
   dplyr, 
   lubridate,
   stringr,
+  stringi,
   fontcm, 
   extrafont,
   ggplot2, 
