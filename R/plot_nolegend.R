@@ -1,6 +1,7 @@
 #' No Legend Plots
 #'
 #' This is a function that strips the plot of its legend.
+
 #' @import ggplot2
 #' @param p The plot that we will strip its legend of.
 #' @examples

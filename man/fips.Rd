@@ -11,6 +11,8 @@
   \item{stfips}{FIPS code}
   \item{south_all}{Southern states}
   \item{south_conf}{Southern states (11 confederate)}
+  \item{region}{Region classification by Census Bureau}
+  \item{division}{Division classification by Census Bureau}
 }}
 \usage{
 fips

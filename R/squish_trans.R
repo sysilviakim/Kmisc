@@ -4,11 +4,12 @@
 #' that "squishes" the y-axis where it may be uninformative.
 #' This was taken from the following link:
 #' https://stackoverflow.com/questions/35511951/r-ggplot2-collapse-or-remove-segment-of-y-axis-from-scatter-plot
+
 #' @param from Lower bound of the interval to be squished
 #' @param to Upper bound of the interval to be squished
 #' @param factor factor to be used in squishing-interval
 #' @return A trans object that can be used to ggplot
-#' @import scales
+#' @importFrom scales trans_new
 #' @export
 
 squish_trans <- function(from, to, factor) {
@@ -31,5 +32,5 @@ squish_trans <- function(from, to, factor) {
     return(x)
   }
   # return the transformation
-  return(scales::trans_new("squished", trans, inv))
+  return(trans_new("squished", trans, inv))
 }

@@ -9,7 +9,8 @@
 #' of this function.
 
 #' @import dplyr
-#' @import lubridate
+#' @importFrom lubridate parse_date_time
+#' @import stringr
 #' @param df Dataframe to be cleaned
 #' @param varnames All variables to be cleaned
 #' @param varnames_date Date variables
@@ -29,6 +30,7 @@ clean_vars <- function(df = NULL,
                        firstname = NULL,
                        prefix = NULL,
                        gender_original = NULL) {
+  . <- proportion_female <- year_min <- year_max <- NULL
   output <- df
   if (!is.null(setdiff(varnames, varnames_date)) &
     length(setdiff(varnames, varnames_date)) > 0) {
@@ -50,14 +52,15 @@ clean_vars <- function(df = NULL,
     for (x in varnames_num) {
       output[[x]] <-
         as.numeric(gsub(
-          "[^[:digit:]]", "", str_split_fixed(output[[x]], fixed(" "), 2)[, 1]
+          "[^[:digit:]]", "",
+          stringr::str_split_fixed(output[[x]], stringr::fixed(" "), 2)[, 1]
         ))
     }
   }
   if (!is.null(varnames_date)) {
     for (x in varnames_date) {
       output[[x]] <-
-        as.Date(lubridate::parse_date_time(output[[x]], date_order))
+        as.Date(parse_date_time(output[[x]], date_order))
     }
   }
   if (!is.null(firstname)) {

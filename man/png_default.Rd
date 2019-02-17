@@ -4,12 +4,12 @@
 \alias{png_default}
 \title{Graphics Option: PNG Presentations, Default Option}
 \usage{
-png_default(p, OfficinaSans = NULL)
+png_default(p, font = NULL)
 }
 \arguments{
 \item{p}{The input ggplot2 object}
 
-\item{OfficinaSans}{Font for the graphics. Default is OfficinaSansITBoo.}
+\item{font}{Font for the graphics. Default is fontITBoo.}
 }
 \description{
 This function implements my *personal* favorite setup for beamer pngs.

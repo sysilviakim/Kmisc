@@ -15,6 +15,8 @@ Imports:
   stats, 
   rlang, 
   dplyr, 
+  lubridate,
+  stringr,
   fontcm, 
   extrafont,
   ggplot2, 
