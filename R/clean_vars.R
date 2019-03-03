@@ -23,6 +23,8 @@
 #' Defaults to "mdy".
 #' @param varnames_num Numeric variables.
 #' Defaults to NULL.
+#' @param gender Whether to create an inferred gender variable.
+#' Defaults to TRUE.
 #' @param firstname Variable containing first names.
 #' Defaults to NULL.
 #' @param prefix Variable containing self-reported personal prefixes.
@@ -42,60 +44,70 @@ clean_vars <- function(df,
                        date_order = "mdy",
                        varnames_num = NULL,
                        firstname = NULL,
+                       gender = TRUE,
                        prefix = NULL,
                        prefix_male = "mr",
                        gender_original = NULL,
                        gender_male = "m") {
   . <- proportion_female <- year_min <- year_max <- NULL
   output <- df
-  if (!is.null(setdiff(varnames, varnames_date)) &
-    length(setdiff(varnames, varnames_date)) > 0) {
-    for (x in setdiff(varnames, varnames_date)) {
-      ## ASCII conversion rather than deletion
-      ## So no longer gsub("[^ -~]", "", tolower(output[[x]]))
-      output[[x]] <- stri_trans_general(tolower(output[[x]]), "latin-ascii")
-      output[[x]] <-
-        gsub(
-          "[ \t]{2,}", " ",
-          gsub("^\\s+|\\s+$", "", gsub("[[:punct:]]", " ", output[[x]]))
-        )
+  if (nrow(output) > 0) {
+    if (!is.null(setdiff(varnames, varnames_date)) &
+      length(setdiff(varnames, varnames_date)) > 0) {
+      for (x in setdiff(varnames, varnames_date)) {
+        ## ASCII conversion rather than deletion
+        ## So no longer gsub("[^ -~]", "", tolower(output[[x]]))
+        output[[x]] <- stri_trans_general(tolower(output[[x]]), "latin-ascii")
+        output[[x]] <-
+          gsub(
+            "[ \t]{2,}", " ",
+            gsub("^\\s+|\\s+$", "", gsub("[[:punct:]]", " ", output[[x]]))
+          )
+      }
     }
-  }
-  if (!is.null(varnames_num)) {
-    for (x in varnames_num) {
-      output[[x]] <-
-        as.numeric(gsub(
-          "[^[:digit:]]", "",
-          str_split_fixed(output[[x]], fixed(" "), 2)[, 1]
-        ))
+    if (!is.null(varnames_num)) {
+      for (x in varnames_num) {
+        output[[x]] <-
+          as.numeric(gsub(
+            "[^[:digit:]]", "",
+            str_split_fixed(output[[x]], fixed(" "), 2)[, 1]
+          ))
+      }
     }
-  }
-  if (!is.null(varnames_date)) {
-    for (x in varnames_date) {
-      output[[x]] <-
-        as.Date(parse_date_time(output[[x]], date_order))
+    if (!is.null(varnames_date)) {
+      for (x in varnames_date) {
+        output[[x]] <-
+          as.Date(parse_date_time(output[[x]], date_order))
+      }
     }
-  }
-  if (!is.null(firstname)) {
-    output <- output %>%
-      Kmisc::gender_mutate_df(., input_name = firstname) %>%
-      dplyr::select(-proportion_female, -year_min, -year_max)
-    output$gender <- ifelse(output$gender == "either", NA, output$gender)
-  } else {
-    output$gender <- NA
-  }
-  if (!is.null(prefix)) {
-    output$gender <- ifelse(
-      (!is.na(output[[prefix]]) & tolower(output[[prefix]]) == prefix_male),
-      "male", output$gender
-    )
-  }
-  if (!is.null(prefix)) {
-    output$gender <- ifelse(
-      (!is.na(output[[gender_original]]) &
-        tolower(output[[gender_original]]) == gender_male),
-      "male", output$gender
-    )
+    if (gender == TRUE) {
+      if ("gender" %in% names(output)) {
+        print("There is already an existing gender variable.")
+      } else {
+        if (!is.null(firstname)) {
+          output <- output %>%
+            Kmisc::gender_mutate_df(., input_name = firstname) %>%
+            dplyr::select(-proportion_female, -year_min, -year_max)
+          output$gender <- ifelse(output$gender == "either", NA, output$gender)
+        } else {
+          output$gender <- NA
+        }
+        if (!is.null(prefix)) {
+          output$gender <- ifelse(
+            (!is.na(output[[prefix]]) &
+              tolower(output[[prefix]]) == prefix_male),
+            "male", output$gender
+          )
+        }
+        if (!is.null(prefix)) {
+          output$gender <- ifelse(
+            (!is.na(output[[gender_original]]) &
+              tolower(output[[gender_original]]) == gender_male),
+            "male", output$gender
+          )
+        }
+      }
+    }
   }
   return(output)
 }

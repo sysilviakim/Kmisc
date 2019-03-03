@@ -2,6 +2,7 @@
 
 export(Mode)
 export(clean_vars)
+export(dedup)
 export(dir_dendrogram)
 export(gender_mutate_df)
 export(grid_arrange_shared_legend)

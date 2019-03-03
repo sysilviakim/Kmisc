@@ -6,8 +6,8 @@
 \usage{
 clean_vars(df, varnames = NULL, varnames_date = NULL,
   date_order = "mdy", varnames_num = NULL, firstname = NULL,
-  prefix = NULL, prefix_male = "mr", gender_original = NULL,
-  gender_male = "m")
+  gender = TRUE, prefix = NULL, prefix_male = "mr",
+  gender_original = NULL, gender_male = "m")
 }
 \arguments{
 \item{df}{Dataframe to be cleaned.}
@@ -26,6 +26,9 @@ Defaults to NULL.}
 
 \item{firstname}{Variable containing first names.
 Defaults to NULL.}
+
+\item{gender}{Whether to create an inferred gender variable.
+Defaults to TRUE.}
 
 \item{prefix}{Variable containing self-reported personal prefixes.
 Defaults to NULL.}
