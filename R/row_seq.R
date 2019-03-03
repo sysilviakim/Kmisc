@@ -10,7 +10,10 @@
 #' @export
 
 row_seq <- function(df, row = "row") {
-  if (grepl(row, names(df))) {
+  if (length(row) != 1) {
+    stop("Invalid input for argument row.")
+  }
+  if (row %in% names(df)) {
     stop("Set another name for the row variable to be created.")
   }
   if (nrow(df) > 0) {
