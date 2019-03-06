@@ -39,11 +39,16 @@ geocoder_curl_input <- function(df,
       "geobatch_", tolower(tail(unlist(str_split(benchmark, "_")), 1)), "_"
     )
   }
-  if (is.null(curl_path)) {
-    curl_path <- paste0(
+  if (is.null(curl_file)) {
+    curl_file <- paste0(
       "curl_", tolower(tail(unlist(str_split(benchmark, "_")), 1))
     )
   }
+  lapply(
+    c(input_path, output_path, curl_path), function(x) {
+      if (!dir.exists(file.path(x))) dir.create(file.path(x), recursive = TRUE)
+    }
+  )
   for (i in seq(ceiling(nrow(df) / 10000))) {
     temp <- df[seq((i - 1) * 10000, i * 10000 - 1), ]
     write.table(
@@ -53,7 +58,8 @@ geocoder_curl_input <- function(df,
     write.table(
       data.frame(
         text = paste0(
-          "curl --form addressFile=@", "./input/ocrov_", i, ".txt",
+          "curl --form addressFile=@", file.path(input_path), "/",
+          input_prefix, i, ".txt",
           " --form benchmark=", benchmark,
           " --form vintage=", vintage,
           " \"https://geocoding.geo.census.gov/",
@@ -68,5 +74,6 @@ geocoder_curl_input <- function(df,
     )
   }
   ### There is no return.
-  print("Input/curl file generation complete.")
+  cat("Input/curl file generation complete ")
+  cat("for vintage", vintage, "and benchmark", benchmark)
 }
