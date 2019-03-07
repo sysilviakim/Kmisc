@@ -49,6 +49,9 @@ geocoder_curl_input <- function(df,
       if (!dir.exists(file.path(x))) dir.create(file.path(x), recursive = TRUE)
     }
   )
+  if (file.exists(file.path(curl_path, paste0(curl_file, ".txt")))) {
+    file.remove(file.path(curl_path, paste0(curl_file, ".txt")))
+  }
   for (i in seq(ceiling(nrow(df) / 10000))) {
     temp <- df[seq((i - 1) * 10000, i * 10000 - 1), ]
     write.table(
