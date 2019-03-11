@@ -25,6 +25,8 @@ geocoder_curl_input(df, input_path = ".", input_prefix = NULL,
 
 \item{curl_file}{File name for curl command file, without the extension.}
 
+\item{curl_append}{Whether to append an existing curl file.}
+
 \item{benchmark}{The benchmark selection for Census Geocoder.}
 
 \item{vintage}{The vintage selection for Census Geocoder.}

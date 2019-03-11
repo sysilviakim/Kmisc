@@ -15,6 +15,7 @@
 #' @param output_prefix File prefix for output text files.
 #' @param curl_path File path for curl command file.
 #' @param curl_file File name for curl command file, without the extension.
+#' @param curl_append Whether to append an existing curl file.
 #' @param benchmark The benchmark selection for Census Geocoder.
 #' @param vintage The vintage selection for Census Geocoder.
 #'
