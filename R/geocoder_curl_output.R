@@ -76,7 +76,7 @@ geocoder_curl_output <- function(df,
   ### 12    Census Block        Census Block Code
   assert_that(nrow(anti_join(df, out)) == 0)
   print(paste0(
-    "Match rate is for benchmark", benchmark, " and vintage ", vintage, ": "
+    "Match rate is for benchmark ", benchmark, " and vintage ", vintage, ": "
   ))
   print(round(prop.table(table(out$match)) * 100, digits = 1))
   x <- list()
