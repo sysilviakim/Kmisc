@@ -27,6 +27,7 @@ geocoder_curl_input <- function(df,
                                 output_prefix = NULL,
                                 curl_path = ".",
                                 curl_file = NULL,
+                                curl_append = FALSE,
                                 benchmark = "Public_AR_Census2010",
                                 vintage = "Census2010_Census2010") {
   if (is.null(input_prefix)) {
@@ -49,11 +50,14 @@ geocoder_curl_input <- function(df,
       if (!dir.exists(file.path(x))) dir.create(file.path(x), recursive = TRUE)
     }
   )
-  if (file.exists(file.path(curl_path, paste0(curl_file, ".txt")))) {
+  if (
+    file.exists(file.path(curl_path, paste0(curl_file, ".txt"))) &
+    curl_append == FALSE
+  ) {
     file.remove(file.path(curl_path, paste0(curl_file, ".txt")))
   }
   for (i in seq(ceiling(nrow(df) / 10000))) {
-    temp <- df[seq((i - 1) * 10000, i * 10000 - 1), ]
+    temp <- df[seq((i - 1) * 10000, min(i * 10000 - 1, nrow(df))), ]
     write.table(
       temp, file = file.path(input_path, paste0(input_prefix, i, ".txt")),
       quote = FALSE, sep = ",", na = "", row.names = FALSE, col.names = FALSE

@@ -6,7 +6,8 @@
 \usage{
 geocoder_curl_input(df, input_path = ".", input_prefix = NULL,
   output_path = ".", output_prefix = NULL, curl_path = ".",
-  curl_file = NULL, benchmark = "Public_AR_Census2010",
+  curl_file = NULL, curl_append = FALSE,
+  benchmark = "Public_AR_Census2010",
   vintage = "Census2010_Census2010")
 }
 \arguments{
