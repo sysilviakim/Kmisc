@@ -131,6 +131,11 @@ addr_precensus <- function(df,
     }
     df %<>%
       mutate(
+        house_num = ifelse(is.na(house_num), "", house_num),
+        pre_dir = ifelse(is.na(pre_dir), "", pre_dir),
+        street_name = ifelse(is.na(street_name), "", street_name),
+        street_sfx = ifelse(is.na(street_sfx), "", street_sfx),
+        post_dir = ifelse(is.na(post_dir), "", post_dir),
         street = paste(
           !!as.name(house_num),
           !!as.name(pre_dir),
