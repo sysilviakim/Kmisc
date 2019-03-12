@@ -131,7 +131,13 @@ addr_precensus <- function(df,
     }
     df %<>%
       mutate(
-        street = paste(house_num, pre_dir, street_name, street_sfx, post_dir),
+        street = paste(
+          !!as.name(house_num),
+          !!as.name(pre_dir),
+          !!as.name(street_name),
+          !!as.name(street_sfx),
+          !!as.name(post_dir)
+        ),
         street = gsub("[ \t]{2,}", " ", trimws(street))
       )
   }
