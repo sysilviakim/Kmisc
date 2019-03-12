@@ -16,6 +16,7 @@ Imports:
   rlang, 
   utils, 
   dplyr, 
+  tidyr,
   lubridate,
   magrittr, 
   assertthat,
