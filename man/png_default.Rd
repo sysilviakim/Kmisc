@@ -4,12 +4,18 @@
 \alias{png_default}
 \title{Graphics Option: PNG Presentations, Default Option}
 \usage{
-png_default(p, font = NULL)
+png_default(p, font = NULL, legend.position = "bottom",
+  legend.direction = "horizontal")
 }
 \arguments{
 \item{p}{The input ggplot2 object}
 
-\item{font}{Font for the graphics. Default is fontITBoo.}
+\item{font}{Font for the graphics. Default is NULL.}
+
+\item{legend.position}{Legend position passed to ggplot2. Default is bottom.}
+
+\item{legend.direction}{Legend direction passed to ggplot.
+Default is horizontal.}
 }
 \description{
 This function implements my *personal* favorite setup for beamer pngs.
