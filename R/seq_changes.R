@@ -14,16 +14,18 @@
 #' Defaults to 15.
 #'
 #' @importFrom data.table rleid
+#' @importFrom dplyr "%>%"
 #'
 #' @examples
-#' seq_changes(
-#'   c("A", "A", "B", "A", "A", "C", "C", "C", "C", "D"),
-#'   names = FALSE, gap = 1
-#' )
+#' seq_changes(c(NA, "B", rep("A", 2), rep("C", 4), "D"), gap = 1, len = 1)
 #'
 #' @export
 
 seq_changes <- function(x, names = TRUE, sub_str = NULL, len = 2, gap = 15) {
+  . <- NULL
+  if (names == TRUE & is.null(names(x))) {
+    names <- FALSE
+  }
   if (!is.null(sub_str)) {
     if (
       !(length(sub_str) == 2 |
@@ -36,14 +38,21 @@ seq_changes <- function(x, names = TRUE, sub_str = NULL, len = 2, gap = 15) {
   cid <- rleid(x)
   temp <- lapply(unique(cid), function(x) cid == x)
   temp <- lapply(temp, function(x) min(which(x == TRUE))) %>% unlist()
-  max_nchar <- max(unlist(lapply(x[temp], nchar)))
+  max_nchar <- max(unlist(lapply(x[temp], nchar)), na.rm = TRUE)
   if (names) {
     cat(
       lapply(
         seq(length(x[temp])),
         function(y) paste0(
             unname(x[temp][y]),
-            rep(" ", max_nchar + gap - nchar(x[temp][y])) %>%
+            rep(
+              " ",
+              max(
+                max_nchar + gap -
+                  ifelse(is.na(nchar(x[temp][y])), 2, nchar(x[temp][y])),
+                1
+              )
+            ) %>%
               paste0(collapse = ""),
             ifelse(
               is.null(sub_str), names(x[temp][y]),
@@ -58,7 +67,8 @@ seq_changes <- function(x, names = TRUE, sub_str = NULL, len = 2, gap = 15) {
             rep(" |\n", len) %>%
               paste0(collapse = "")
           )
-        )
+        ) %>%
+        paste0(., "\n")
     )
   } else {
     cat(
@@ -66,7 +76,14 @@ seq_changes <- function(x, names = TRUE, sub_str = NULL, len = 2, gap = 15) {
         seq(length(x[temp])),
         function(y) paste0(
             unname(x[temp][y]),
-            rep(" ", max_nchar + gap - nchar(x[temp][y])) %>%
+            rep(
+              " ",
+              max(
+                max_nchar + gap -
+                  ifelse(is.na(nchar(x[temp][y])), 2, nchar(x[temp][y])),
+                1
+              )
+            ) %>%
               paste0(collapse = ""),
             temp[y] ## names(x[temp][y])
           )
@@ -78,7 +95,8 @@ seq_changes <- function(x, names = TRUE, sub_str = NULL, len = 2, gap = 15) {
             rep(" |\n", len) %>%
               paste0(collapse = "")
           )
-        )
+        ) %>%
+        paste0(., "\n")
     )
   }
 }

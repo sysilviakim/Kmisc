@@ -26,9 +26,6 @@ checks for changes in consecutive values over the sequence, and show at
 which points the values change.
 }
 \examples{
-seq_changes(
-  c("A", "A", "B", "A", "A", "C", "C", "C", "C", "D"),
-  names = FALSE, gap = 1
-)
+seq_changes(c(NA, "B", rep("A", 2), rep("C", 4), "D"), gap = 1, len = 1)
 
 }
