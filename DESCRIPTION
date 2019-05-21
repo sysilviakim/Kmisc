@@ -33,5 +33,6 @@ Imports:
   grDevices,
   scales,
   data.tree,
-  data.table
+  data.table,
+  wru
 Remotes: ropensci/genderdata
