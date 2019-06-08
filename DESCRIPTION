@@ -16,6 +16,7 @@ Imports:
   rlang, 
   utils, 
   dplyr, 
+  readr,
   tidyr,
   lubridate,
   magrittr, 

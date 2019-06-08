@@ -1,5 +1,7 @@
 #' ACS Processing/Merging Functions
 #'
+#' These functions are not for export.
+#'
 #' @importFrom dplyr "%>%"
 #' @importFrom dplyr mutate
 #' @importFrom dplyr select
@@ -9,6 +11,15 @@
 #' @importFrom readr read_csv
 #' @importFrom readr cols
 #' @importFrom magrittr set_names
+#' @importFrom stringr str_pad
+#'
+#' @param df Dataframe for crosswalk.
+#' @param acs_tract Variable name for ACS tract geoids.
+#' @param acs_block Variable name for ACS block geoids.
+#' @param state_fips Variable name for state FIPS codes.
+#' @param county_fips Variable name for county FIPS codes.
+#' @param census_tract Variable name for Census Geocoder tract geoids.
+#' @param census_block Variable name for Census Geocoder block geoids.
 
 acs_geoid_crosswalk <- function(df,
                                 acs_tract = "acs_tract",
@@ -37,9 +48,14 @@ acs_geoid_crosswalk <- function(df,
 }
 
 acs_income_readr <- function(file, upper_limit = "250000") {
+  . <- X2 <- moe <- est <- NULL
   out <- read_csv(
-    file, col_names = FALSE, col_types = cols(.default = "c"),
-    skip = 2, quote = "", na = ""
+    file,
+    col_names = FALSE,
+    col_types = cols(.default = "c"),
+    skip = 2,
+    quote = "",
+    na = ""
   ) %>%
     select(
       geoid = X2,
@@ -56,10 +72,15 @@ acs_income_readr <- function(file, upper_limit = "250000") {
 }
 
 acs_edu_readr <- function(file) {
+  . <- X1 <- X2 <- ba_est <- ma_est <- prof_est <- phd_est <-
+    matches <- moe <- est <- geoid <- total_est <- NULL
   out <- read_csv(
     file,
-    col_names = FALSE, col_types = cols(.default = "c"),
-    skip = 2, quote = "", na = ""
+    col_names = FALSE,
+    col_types = cols(.default = "c"),
+    skip = 2,
+    quote = "",
+    na = ""
   ) %>%
     select(-X1) %>%
     mutate_if(is.character, as.numeric) %>%
@@ -83,3 +104,4 @@ acs_edu_readr <- function(file) {
     select(-matches("none|nursery|kindergarten")) %>%
     select(-matches(paste0("g", seq(12)) %>% paste(collapse = "|")))
 }
+
