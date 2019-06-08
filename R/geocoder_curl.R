@@ -100,6 +100,7 @@ geocoder_curl_input <- function(df,
 #' @importFrom dplyr select
 #' @importFrom dplyr anti_join
 #' @importFrom dplyr left_join
+#' @importFrom dplyr mutate
 #' @importFrom dplyr "%>%"
 #' @importFrom magrittr "%<>%"
 #' @importFrom assertthat assert_that
@@ -141,7 +142,7 @@ geocoder_curl_output <- function(df,
     }
   }
   out %<>%
-    dplyr::mutate(
+    mutate(
       row = as.integer(row),
       tiger = as.integer(tiger),
       state_fips = as.integer(state_fips),

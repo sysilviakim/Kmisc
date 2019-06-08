@@ -8,16 +8,16 @@
 
 #' @importFrom data.tree as.Node
 #' @importFrom stats na.omit
-#' @import dplyr
+#' @importFrom dplyr rbind_all
 #' @param path List of directories to be converted to a dendrogram
 
 #' @export
 
 dir_dendrogram <- function(path) {
   x <- lapply(strsplit(path, "/"), function(z) as.data.frame(t(z)))
-  x <- suppressWarnings(dplyr::rbind_all(x))
+  x <- suppressWarnings(rbind_all(x))
   x$pathString <- apply(
     x, 1, function(x) paste(trimws(na.omit(x)), collapse = "/")
   )
-  return(data.tree::as.Node(x))
+  return(as.Node(x))
 }

@@ -12,6 +12,7 @@
 #' @importFrom dplyr case_when
 #' @importFrom dplyr filter
 #' @importFrom dplyr rename
+#' @importFrom dplyr select
 #' @importFrom tidyr separate
 #' @importFrom stringi stri_trans_general
 #'
@@ -107,7 +108,7 @@ census_format <- function(df,
     )
   }
   out %<>%
-    dplyr::select(
+    select(
       "address_input", "match", "match_detail", "address_output",
       "latlon", "tiger", "side", "state_fips", "county_fips", "census_tract",
       "census_block", "benchmark", "vintage", "date", vars_keep

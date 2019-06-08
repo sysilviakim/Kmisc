@@ -19,4 +19,5 @@ It can also take lists of matrix/dataframes.
 mdat <- matrix(c(1, 2, "A", "B"), nrow = 2, ncol = 2, byrow = TRUE,
                dimnames = list(c("row1", "row2"), c("col1", "col2")))
 rowid_matrix_to_df(mdat, colname = "row")
+
 }

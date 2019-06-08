@@ -8,7 +8,8 @@
 #' gender variable, if it exists. Function title_gender_infer is a variation
 #' of this function.
 
-#' @import dplyr
+#' @importFrom dplyr "%>%"
+#' @importFrom dplyr select
 #' @importFrom lubridate parse_date_time
 #' @importFrom stringi stri_trans_general
 #' @importFrom stringr str_split_fixed
@@ -82,12 +83,12 @@ clean_vars <- function(df,
     }
     if (gender == TRUE) {
       if ("gender" %in% names(output)) {
-        print("There is already an existing gender variable.")
+        message("There already exists a variable called 'gender'.")
       } else {
         if (!is.null(firstname)) {
           output <- output %>%
-            Kmisc::gender_mutate_df(., input_name = firstname) %>%
-            dplyr::select(-proportion_female, -year_min, -year_max)
+            gender_mutate_df(., input_name = firstname) %>%
+            select(-proportion_female, -year_min, -year_max)
           output$gender <- ifelse(output$gender == "either", NA, output$gender)
         } else {
           output$gender <- NA

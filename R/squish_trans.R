@@ -9,7 +9,9 @@
 #' @param to Upper bound of the interval to be squished
 #' @param factor factor to be used in squishing-interval
 #' @return A trans object that can be used to ggplot
+#'
 #' @importFrom scales trans_new
+#'
 #' @export
 
 squish_trans <- function(from, to, factor) {
