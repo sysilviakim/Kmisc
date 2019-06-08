@@ -34,8 +34,9 @@
 #' Defaults to "mr" (the input will be lowercased before comparison.)
 #' @param gender_original Variable containing original gender entry.
 #' Defaults to NULL.
-#' @param gender_male Value that indicates male in the original gender entry.
-#' Defaults to "m" (the input will be lowercased before comparison.)
+#' @param gender_male Regex expression that indicates male
+#' in the original gender entry. Defaults to "^m$|^male$"
+#' (the input will be lowercased before comparison.)
 
 #' @export
 
@@ -49,7 +50,7 @@ clean_vars <- function(df,
                        prefix = NULL,
                        prefix_male = "mr",
                        gender_original = NULL,
-                       gender_male = "m") {
+                       gender_male = "^m$|^male$") {
   . <- proportion_female <- year_min <- year_max <- NULL
   output <- df
   if (nrow(output) > 0) {
@@ -96,14 +97,14 @@ clean_vars <- function(df,
         if (!is.null(prefix)) {
           output$gender <- ifelse(
             (!is.na(output[[prefix]]) &
-              tolower(output[[prefix]]) == prefix_male),
+              grepl(prefix_male, tolower(output[[prefix]]))),
             "male", output$gender
           )
         }
-        if (!is.null(prefix)) {
+        if (!is.null(gender_original)) {
           output$gender <- ifelse(
             (!is.na(output[[gender_original]]) &
-              tolower(output[[gender_original]]) == gender_male),
+              grepl(gender_male, tolower(output[[gender_original]]))),
             "male", output$gender
           )
         }

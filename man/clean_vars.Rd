@@ -7,7 +7,7 @@
 clean_vars(df, varnames = NULL, varnames_date = NULL,
   date_order = "mdy", varnames_num = NULL, firstname = NULL,
   gender = TRUE, prefix = NULL, prefix_male = "mr",
-  gender_original = NULL, gender_male = "m")
+  gender_original = NULL, gender_male = "^m$|^male$")
 }
 \arguments{
 \item{df}{Dataframe to be cleaned.}
@@ -39,8 +39,9 @@ Defaults to "mr" (the input will be lowercased before comparison.)}
 \item{gender_original}{Variable containing original gender entry.
 Defaults to NULL.}
 
-\item{gender_male}{Value that indicates male in the original gender entry.
-Defaults to "m" (the input will be lowercased before comparison.)}
+\item{gender_male}{Regex expression that indicates male
+in the original gender entry. Defaults to "^m$|^male$"
+(the input will be lowercased before comparison.)}
 }
 \description{
 This function takes a dataframe and performs a variety of cleaning.
