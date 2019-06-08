@@ -107,6 +107,11 @@ clean_vars <- function(df,
               grepl(gender_male, tolower(output[[gender_original]]))),
             "male", output$gender
           )
+          output$gender <- ifelse(
+            (!is.na(output[[gender_original]]) &
+               !grepl(gender_male, tolower(output[[gender_original]]))),
+            "female", output$gender
+          )
         }
       }
     }
