@@ -67,7 +67,6 @@ png_default <- function(p,
 #' @import fontcm
 #' @importFrom extrafont font_install
 #' @importFrom extrafont loadfonts
-#' @import grDevices
 #' @importFrom ggplot2 theme
 #' @importFrom ggplot2 element_text
 #' @importFrom ggplot2 theme_bw
