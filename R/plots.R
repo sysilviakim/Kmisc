@@ -5,8 +5,7 @@
 
 #' @import fontcm
 #' @importFrom extrafont loadfonts
-#' @importFrom grDevices windowsFont
-#' @importFrom grDevices windowsFonts
+#' @import grDevices
 #' @importFrom ggplot2 theme
 #' @importFrom ggplot2 element_text
 #' @importFrom ggthemes theme_economist
@@ -65,6 +64,7 @@ png_default <- function(p,
 #' Rstudio plot pane, but will be correctly input in the resulting pdf file.
 
 #' @import fontcm
+#' @import grDevices
 #' @importFrom extrafont font_install
 #' @importFrom extrafont loadfonts
 #' @importFrom ggplot2 theme
