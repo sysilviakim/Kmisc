@@ -30,12 +30,19 @@
 #' Defaults to NULL.
 #' @param prefix Variable containing self-reported personal prefixes.
 #' Defaults to NULL.
-#' @param prefix_male Value that indicates male in the prefix variable.
-#' Defaults to "mr" (the input will be lowercased before comparison.)
+#' @param prefix_male Regex expression that indicates male in the prefix
+#' variable. Defaults to "^mr$"
+#' (the input will be lowercased before comparison.)
+#' @param prefix_female Regex expressions that indicate female in the prefix
+#' variable. Defaults to "^ms$|^miss$|^mrs$"
+#' (the input will be lowercased before comparison.)
 #' @param gender_original Variable containing original gender entry.
 #' Defaults to NULL.
 #' @param gender_male Regex expression that indicates male
 #' in the original gender entry. Defaults to "^m$|^male$"
+#' (the input will be lowercased before comparison.)
+#' @param gender_female Regex expression that indicates female
+#' in the original gender entry. Defaults to "^f$|^female$"
 #' (the input will be lowercased before comparison.)
 
 #' @export
@@ -48,9 +55,11 @@ clean_vars <- function(df,
                        firstname = NULL,
                        gender = TRUE,
                        prefix = NULL,
-                       prefix_male = "mr",
+                       prefix_male = "^mr$",
+                       prefix_female = "^ms$|^miss$|^mrs$",
                        gender_original = NULL,
-                       gender_male = "^m$|^male$") {
+                       gender_male = "^m$|^male$",
+                       gender_female = "^f$|^female$") {
   . <- proportion_female <- year_min <- year_max <- NULL
   output <- df
   if (nrow(output) > 0) {
@@ -100,6 +109,11 @@ clean_vars <- function(df,
               grepl(prefix_male, tolower(output[[prefix]]))),
             "male", output$gender
           )
+          output$gender <- ifelse(
+            (!is.na(output[[prefix]]) &
+               grepl(prefix_female, tolower(output[[prefix]]))),
+            "female", output$gender
+          )
         }
         if (!is.null(gender_original)) {
           output$gender <- ifelse(
@@ -109,7 +123,7 @@ clean_vars <- function(df,
           )
           output$gender <- ifelse(
             (!is.na(output[[gender_original]]) &
-               !grepl(gender_male, tolower(output[[gender_original]]))),
+               grepl(gender_female, tolower(output[[gender_original]]))),
             "female", output$gender
           )
         }

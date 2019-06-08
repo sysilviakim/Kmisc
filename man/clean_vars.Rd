@@ -6,8 +6,9 @@
 \usage{
 clean_vars(df, varnames = NULL, varnames_date = NULL,
   date_order = "mdy", varnames_num = NULL, firstname = NULL,
-  gender = TRUE, prefix = NULL, prefix_male = "mr",
-  gender_original = NULL, gender_male = "^m$|^male$")
+  gender = TRUE, prefix = NULL, prefix_male = "^mr$",
+  prefix_female = "^ms$|^miss$|^mrs$", gender_original = NULL,
+  gender_male = "^m$|^male$", gender_female = "^f$|^female$")
 }
 \arguments{
 \item{df}{Dataframe to be cleaned.}
@@ -33,14 +34,23 @@ Defaults to TRUE.}
 \item{prefix}{Variable containing self-reported personal prefixes.
 Defaults to NULL.}
 
-\item{prefix_male}{Value that indicates male in the prefix variable.
-Defaults to "mr" (the input will be lowercased before comparison.)}
+\item{prefix_male}{Regex expression that indicates male in the prefix
+variable. Defaults to "^mr$"
+(the input will be lowercased before comparison.)}
+
+\item{prefix_female}{Regex expressions that indicate female in the prefix
+variable. Defaults to "^ms$|^miss$|^mrs$"
+(the input will be lowercased before comparison.)}
 
 \item{gender_original}{Variable containing original gender entry.
 Defaults to NULL.}
 
 \item{gender_male}{Regex expression that indicates male
 in the original gender entry. Defaults to "^m$|^male$"
+(the input will be lowercased before comparison.)}
+
+\item{gender_female}{Regex expression that indicates female
+in the original gender entry. Defaults to "^f$|^female$"
 (the input will be lowercased before comparison.)}
 }
 \description{
