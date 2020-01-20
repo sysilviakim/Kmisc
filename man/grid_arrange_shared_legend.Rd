@@ -4,8 +4,14 @@
 \alias{grid_arrange_shared_legend}
 \title{Common-Legend Arrangement of Plots}
 \usage{
-grid_arrange_shared_legend(..., ncol = length(list(...)), nrow = 1,
-  position = c("bottom", "right"), legend = NULL, legend_plot = NULL)
+grid_arrange_shared_legend(
+  ...,
+  ncol = length(list(...)),
+  nrow = 1,
+  position = c("bottom", "right"),
+  legend = NULL,
+  legend_plot = NULL
+)
 }
 \arguments{
 \item{...}{A series of plots to share a common legend}

@@ -4,8 +4,12 @@
 \alias{png_default}
 \title{Graphics Option: PNG Presentations, Default Option}
 \usage{
-png_default(p, font = NULL, legend.position = "bottom",
-  legend.direction = "horizontal")
+png_default(
+  p,
+  font = NULL,
+  legend.position = "bottom",
+  legend.direction = "horizontal"
+)
 }
 \arguments{
 \item{p}{The input ggplot2 object}

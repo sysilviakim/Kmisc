@@ -4,11 +4,22 @@
 \alias{census_format}
 \title{Format Various Geocoding Outputs into Census Format}
 \usage{
-census_format(df, input_type = "n/a", longitude = "longitude",
-  latitude = "latitude", street = "street", city = "szSitusCity",
-  state = "sSitusState", zip = "sSitusZip", cutoff = 0.87,
-  accuracy = NULL, addr_all = NULL, sep = ", ", file_date = NULL,
-  vars_keep = NULL)
+census_format(
+  df,
+  input_type = "n/a",
+  longitude = "longitude",
+  latitude = "latitude",
+  street = "street",
+  city = "szSitusCity",
+  state = "sSitusState",
+  zip = "sSitusZip",
+  cutoff = 0.87,
+  accuracy = NULL,
+  addr_all = NULL,
+  sep = ", ",
+  file_date = NULL,
+  vars_keep = NULL
+)
 }
 \arguments{
 \item{df}{Input dataframe.}

@@ -4,9 +4,13 @@
 \alias{geocoder_curl_output}
 \title{Create Census Geocoder Input Files and Curl Submission File}
 \usage{
-geocoder_curl_output(df, output_path = ".", output_prefix = NULL,
+geocoder_curl_output(
+  df,
+  output_path = ".",
+  output_prefix = NULL,
   benchmark = "Public_AR_Census2010",
-  vintage = "Census2010_Census2010")
+  vintage = "Census2010_Census2010"
+)
 }
 \arguments{
 \item{df}{Input dataframe.}

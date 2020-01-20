@@ -4,8 +4,13 @@
 \alias{gender_mutate_df}
 \title{Inferring Gender from First Names}
 \usage{
-gender_mutate_df(df, input_name, years = c(1932, 2012), method = "ssa",
-  countries = "United States")
+gender_mutate_df(
+  df,
+  input_name,
+  years = c(1932, 2012),
+  method = "ssa",
+  countries = "United States"
+)
 }
 \arguments{
 \item{df}{Dataframe containing a column of first names}

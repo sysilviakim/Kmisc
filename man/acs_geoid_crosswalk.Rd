@@ -4,10 +4,15 @@
 \alias{acs_geoid_crosswalk}
 \title{ACS Processing/Merging Functions}
 \usage{
-acs_geoid_crosswalk(df, acs_tract = "acs_tract",
-  acs_block = "acs_block", state_fips = "state_fips",
-  county_fips = "county_fips", census_tract = "census_tract",
-  census_block = "census_block")
+acs_geoid_crosswalk(
+  df,
+  acs_tract = "acs_tract",
+  acs_block = "acs_block",
+  state_fips = "state_fips",
+  county_fips = "county_fips",
+  census_tract = "census_tract",
+  census_block = "census_block"
+)
 }
 \arguments{
 \item{df}{Dataframe for crosswalk.}

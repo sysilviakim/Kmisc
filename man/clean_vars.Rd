@@ -4,11 +4,21 @@
 \alias{clean_vars}
 \title{Variable Cleaning}
 \usage{
-clean_vars(df, varnames = NULL, varnames_date = NULL,
-  date_order = "mdy", varnames_num = NULL, firstname = NULL,
-  gender = TRUE, prefix = NULL, prefix_male = "^mr$",
-  prefix_female = "^ms$|^miss$|^mrs$", gender_original = NULL,
-  gender_male = "^m$|^male$", gender_female = "^f$|^female$")
+clean_vars(
+  df,
+  varnames = NULL,
+  varnames_date = NULL,
+  date_order = "mdy",
+  varnames_num = NULL,
+  firstname = NULL,
+  gender = TRUE,
+  prefix = NULL,
+  prefix_male = "^mr$",
+  prefix_female = "^ms$|^miss$|^mrs$",
+  gender_original = NULL,
+  gender_male = "^m$|^male$",
+  gender_female = "^f$|^female$"
+)
 }
 \arguments{
 \item{df}{Dataframe to be cleaned.}

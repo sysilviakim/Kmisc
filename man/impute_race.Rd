@@ -4,10 +4,18 @@
 \alias{impute_race}
 \title{Impute Race to Categorical Variables After wru::predict_race}
 \usage{
-impute_race(df, census, state = "sSitusState", surname = "szNameLast",
-  county = "county_fips", tract = "census_tract",
-  block = "census_block", id = "lVoterUniqueID", keep_probs = FALSE,
-  ...)
+impute_race(
+  df,
+  census,
+  state = "sSitusState",
+  surname = "szNameLast",
+  county = "county_fips",
+  tract = "census_tract",
+  block = "census_block",
+  id = "lVoterUniqueID",
+  keep_probs = FALSE,
+  ...
+)
 }
 \arguments{
 \item{df}{Dataframe prepped for wru::predict_race.}
