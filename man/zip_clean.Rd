@@ -20,3 +20,11 @@ This function takes a dataframe or vector containing zip codes and convert
 them to the standard five-digit zip codes. Depending on the argument, it
 saves the subdigits.
 }
+\examples{
+zip_clean(
+  c("1000-2000", NA, "91125", "911250401", "800", "A", "100A"),
+  zip_var = "contributor_zip", keep_last_four = TRUE,
+  last_four_label = "contributor_zip_last4"
+)
+
+}

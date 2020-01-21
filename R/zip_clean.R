@@ -14,6 +14,13 @@
 #' @param keep_last_four Whether to keep the last four digits.
 #' @param last_four_label Variable to store last four digits of zip, if any.
 #'
+#' @examples
+#' zip_clean(
+#'   c("1000-2000", NA, "91125", "911250401", "800", "A", "100A"),
+#'   zip_var = "contributor_zip", keep_last_four = TRUE,
+#'   last_four_label = "contributor_zip_last4"
+#' )
+#'
 #' @export
 
 zip_clean <- function(df,
@@ -47,8 +54,8 @@ zip_clean <- function(df,
     map(1, .null = NA_integer_) %>%
     unlist()
 
-  zip[nchar(zip) < 5] <- paste0(
-    str_pad(zip[nchar(zip) < 5], width = 5, pad = "0"), "0000"
+  zip[nchar(zip) < 5 & !is.na(zip)] <- paste0(
+    str_pad(zip[nchar(zip) < 5 & !is.na(zip)], width = 5, pad = "0"), "0000"
   )
   zip <- str_pad(zip, width = 9, pad = "0", side = "right")
   zip_four <- map2(
@@ -60,8 +67,9 @@ zip_clean <- function(df,
     unlist()
   zip <- str_sub(zip, 1, 5)
 
-  zip[zip == ""] <- NA
-  zip_four[zip_four == ""] <- zip_four[zip_four == "0000"] <- NA
+  zip[zip == "" & !is.na(zip)] <- NA
+  zip_four[zip_four == "" & !is.na(zip_four)] <-
+    zip_four[zip_four == "0000" & !is.na(zip_four)] <- NA
 
   if (keep_last_four == TRUE) {
     if (any(class(df) == "data.frame") | any(class(df) == "tibble")) {
