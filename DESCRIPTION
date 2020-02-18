@@ -36,5 +36,6 @@ Imports:
   scales,
   data.tree,
   data.table,
-  wru
+  wru,
+  RSelenium
 Remotes: ropensci/genderdata
