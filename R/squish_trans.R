@@ -1,10 +1,10 @@
-#' Squishing Y-Axis
+#' Squishing the Y-axis of a ggplot trans object
 #'
 #' This function takes an interval and outputs a trans object
 #' that "squishes" the y-axis where it may be uninformative.
 #' This was taken from the following link:
 #' https://stackoverflow.com/questions/35511951/r-ggplot2-collapse-or-remove-segment-of-y-axis-from-scatter-plot
-
+#'
 #' @param from Lower bound of the interval to be squished
 #' @param to Upper bound of the interval to be squished
 #' @param factor factor to be used in squishing-interval

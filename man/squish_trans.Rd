@@ -2,7 +2,7 @@
 % Please edit documentation in R/squish_trans.R
 \name{squish_trans}
 \alias{squish_trans}
-\title{Squishing Y-Axis}
+\title{Squishing the Y-axis of a ggplot trans object}
 \usage{
 squish_trans(from, to, factor)
 }
