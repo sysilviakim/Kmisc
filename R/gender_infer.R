@@ -3,8 +3,7 @@
 #' This function uses ropensci/gender to convert first names in a dataframe
 #' and obtain additional columns from the ropensci/gender outcome.
 #' This function complements ropensci/gender to be directly used with dataframes
-
-#' @importFrom gender gender
+#' 
 #' @importFrom dplyr "%>%"
 #' @importFrom dplyr group_by
 #' @importFrom dplyr slice
@@ -59,7 +58,7 @@ gender_mutate_df <- function(df,
     )) {
     stop("This is not a valid country recognized by gender::gender.")
   }
-  output <- gender(
+  output <- gender::gender(
     names = df[[input_name]],
     years = years,
     method = method,

@@ -20,4 +20,5 @@ https://stackoverflow.com/questions/6364783/capitalize-the-first-letter-of-both-
 }
 \examples{
 simple_cap("attila marcel")
+
 }

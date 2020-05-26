@@ -5,7 +5,6 @@
 
 #' @import fontcm
 #' @importFrom extrafont loadfonts
-#' @import grDevices
 #' @importFrom ggplot2 theme
 #' @importFrom ggplot2 element_text
 #' @importFrom ggthemes theme_economist
@@ -17,10 +16,12 @@
 #' @param legend.direction Legend direction passed to ggplot.
 #' Default is horizontal.
 #' @keywords plot
+#'
 #' @examples
 #' library(ggplot2)
 #' p <- ggplot(diamonds, aes(depth, colour = cut)) + geom_density()
 #' png_default(p)
+#'
 #' @export
 
 png_default <- function(p,
@@ -37,7 +38,7 @@ png_default <- function(p,
     grepl(tolower("OfficinaSans|Economist"), tolower(font)) &
       Sys.info()["sysname"] == "Windows"
   ) {
-    windowsFonts(font = windowsFont("OfficinaSanITCBoo"))
+    grDevices::windowsFonts(font = grDevices::windowsFont("OfficinaSanITCBoo"))
     font <- "font"
   }
   p <- p +
@@ -64,7 +65,6 @@ png_default <- function(p,
 #' Rstudio plot pane, but will be correctly input in the resulting pdf file.
 
 #' @import fontcm
-#' @import grDevices
 #' @importFrom extrafont font_install
 #' @importFrom extrafont loadfonts
 #' @importFrom ggplot2 theme
@@ -183,7 +183,6 @@ plot_nogrid <- function(p) {
 #' @importFrom grid grid.draw
 #' @importFrom grid unit
 #' @importFrom grid unit.c
-#' @importFrom gridExtra arrangeGrob
 #'
 #' @param ... A series of plots to share a common legend
 #' @param ncol Number of columns of the arranged plots
@@ -216,13 +215,13 @@ grid_arrange_shared_legend <- function(...,
   gl <- c(gl, ncol = ncol, nrow = nrow)
   combined <- switch(
     position,
-    "bottom" = arrangeGrob(
-      do.call(arrangeGrob, gl), legend,
+    "bottom" = gridExtra::arrangeGrob(
+      do.call(gridExtra::arrangeGrob, gl), legend,
       ncol = 1,
       heights = unit.c(unit(1, "npc") - lheight, lheight)
     ),
-    "right" = arrangeGrob(
-      do.call(arrangeGrob, gl), legend,
+    "right" = gridExtra::arrangeGrob(
+      do.call(gridExtra::arrangeGrob, gl), legend,
       ncol = 2,
       widths = unit.c(unit(1, "npc") - lwidth, lwidth)
     )

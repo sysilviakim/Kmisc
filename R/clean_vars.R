@@ -10,7 +10,6 @@
 
 #' @importFrom dplyr "%>%"
 #' @importFrom dplyr select
-#' @importFrom lubridate parse_date_time
 #' @importFrom stringi stri_trans_general
 #' @importFrom stringr str_split_fixed
 #' @importFrom stringr fixed
@@ -88,7 +87,7 @@ clean_vars <- function(df,
     if (!is.null(varnames_date)) {
       for (x in varnames_date) {
         output[[x]] <-
-          as.Date(parse_date_time(output[[x]], date_order))
+          as.Date(lubridate::parse_date_time(output[[x]], date_order))
       }
     }
     if (gender == TRUE) {

@@ -5,9 +5,11 @@
 #' This helps switch between window handles when using RSelenium.
 #' Call such as `remDr$getWindowHandles()[[1]]` and so on.
 
+#' @import RSelenium
+#'
 #' @param remDr `remoteDriver` object created from RSelenium `rsDriver`.
 #' @param windowID ID of the window handle to switch to.
-#' @import RSelenium
+#'
 #' @export
 
 selenium_switch <- function(remDr, windowID) {

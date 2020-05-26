@@ -4,14 +4,16 @@
 \name{ex_addr}
 \alias{ex_addr}
 \title{Examples of U.S. Residential Addresses}
-\format{A dataframe with 1,000 rows and 5 variables:
+\format{
+A dataframe with 1,000 rows and 5 variables:
 \describe{
   \item{street}{Street address}
   \item{city}{City}
   \item{state}{State}
   \item{zip}{5-digit zip code}
   \item{address_input}{First four variables pasted, separated by comma}
-}}
+}
+}
 \usage{
 ex_addr
 }

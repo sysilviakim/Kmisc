@@ -29,5 +29,6 @@ This does not currenty contain details on colors.
 library(ggplot2)
 p <- ggplot(diamonds, aes(depth, colour = cut)) + geom_density()
 png_default(p)
+
 }
 \keyword{plot}

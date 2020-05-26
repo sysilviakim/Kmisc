@@ -20,5 +20,6 @@ https://stackoverflow.com/questions/2547402/is-there-a-built-in-function-for-fin
 \examples{
 x <- c(1, 2, 2, 2, 3, 3, NA)
 Mode(x)
+
 }
 \keyword{mode}

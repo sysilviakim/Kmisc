@@ -8,9 +8,11 @@
 #' @param x The input vector to compute the mode
 #' @param na.rm Whether to remove NA values. Defaults to TRUE.
 #' @keywords mode
+#'
 #' @examples
 #' x <- c(1, 2, 2, 2, 3, 3, NA)
 #' Mode(x)
+#'
 #' @export
 
 Mode <- function(x, na.rm = T) {

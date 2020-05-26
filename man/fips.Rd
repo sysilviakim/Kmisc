@@ -4,7 +4,8 @@
 \name{fips}
 \alias{fips}
 \title{State-level Geographic Indicators}
-\format{A dataframe with 51 rows and 5 variables:
+\format{
+A dataframe with 51 rows and 5 variables:
 \describe{
   \item{stname}{State names, in lowercase}
   \item{stabb}{State abbreviations}
@@ -13,7 +14,8 @@
   \item{south_conf}{Southern states (11 confederate)}
   \item{region}{Region classification by Census Bureau}
   \item{division}{Division classification by Census Bureau}
-}}
+}
+}
 \usage{
 fips
 }

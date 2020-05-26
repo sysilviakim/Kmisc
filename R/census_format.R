@@ -7,7 +7,6 @@
 #' and "census_block".
 #'
 #' @importFrom dplyr "%>%"
-#' @importFrom magrittr "%<>%"
 #' @importFrom dplyr mutate
 #' @importFrom dplyr case_when
 #' @importFrom dplyr filter
@@ -63,25 +62,25 @@ census_format <- function(df,
   }
   if (!is.null(cutoff) & !is.null(accuracy)) {
     if (cutoff > 1 | cutoff < 0) stop("Invalid cutoff value.")
-    out %<>% filter(!!as.name(accuracy) > cutoff)
+    out <- out %>% filter(!!as.name(accuracy) > cutoff)
   }
   if (is.null(file_date)) file_date <- Sys.time()
   if (!is.null(addr_all)) {
-    out %<>%
+    out <- out %>%
       mutate(address_input = !!as.name(addr_all)) %>%
       separate(
         ., !!as.name(addr_all), into = c(street, city, state, zip), sep = sep
       )
   }
   if (input_type == "dstk") {
-    out %<>% mutate(
+    out <- out %>% mutate(
       address_output =
         paste(street_address, locality, region, !!as.name(zip), sep = ", ")
     )
   } else if (input_type == "geocodio") {
-    out %<>% mutate(address_output = formatted_address1)
+    out <- out %>% mutate(address_output = formatted_address1)
   }
-  out %<>%
+  out <- out %>%
     addr_precensus(., vars = "address_output") %>%
     mutate(
       match = "Match",
@@ -98,7 +97,7 @@ census_format <- function(df,
       latlon = ifelse(latlon == "NA,NA", NA, latlon)
     )
   if (input_type == "dstk") {
-    out %<>% mutate(
+    out <- out %>% mutate(
       state_fips = case_when(
         !is.na(fips_county) ~ as.numeric(substr(fips_county, 1, 2))
       ),
@@ -107,7 +106,7 @@ census_format <- function(df,
       )
     )
   }
-  out %<>%
+  out <- out %>%
     select(
       "address_input", "match", "match_detail", "address_output",
       "latlon", "tiger", "side", "state_fips", "county_fips", "census_tract",
@@ -130,7 +129,7 @@ addr_precensus <- function(df,
     for (v in c(house_num, pre_dir, street_name, street_sfx, post_dir)) {
       df[[v]] <- ifelse(is.na(df[[v]]), "", clean_addr(df[[v]]))
     }
-    df %<>%
+    df <- df %>%
       mutate(
         street = paste(
           !!as.name(house_num),

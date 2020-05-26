@@ -10,7 +10,7 @@
 #' @importFrom dplyr select_if
 #' @importFrom readr read_csv
 #' @importFrom readr cols
-#' @importFrom magrittr set_names
+#' @importFrom rlang set_names
 #' @importFrom stringr str_pad
 #'
 #' @param df Dataframe for crosswalk.

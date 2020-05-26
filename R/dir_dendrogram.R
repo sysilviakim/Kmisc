@@ -5,12 +5,12 @@
 #' here: https://stackoverflow.com/questions/36094183/how-to-build-a-dendrogram-from-a-directory-tree
 #' Note that you can print everything by such as following:
 #' `print(dir_dendrogram(list.dirs()), limit = 300)``
-
-#' @importFrom data.tree as.Node
+#'
 #' @importFrom stats na.omit
 #' @importFrom dplyr rbind_all
+#'
 #' @param path List of directories to be converted to a dendrogram
-
+#' 
 #' @export
 
 dir_dendrogram <- function(path) {
@@ -19,5 +19,5 @@ dir_dendrogram <- function(path) {
   x$pathString <- apply(
     x, 1, function(x) paste(trimws(na.omit(x)), collapse = "/")
   )
-  return(as.Node(x))
+  return(data.tree::as.Node(x))
 }

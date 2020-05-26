@@ -8,34 +8,34 @@ Description: This package is an assortment of functions that aid R programming.
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
-Suggests: testthat
-RoxygenNote: 7.0.2
-Depends: R (>= 2.14.0)
-Imports:
-  stats, 
-  rlang, 
-  utils, 
-  dplyr, 
-  readr,
-  tidyr,
-  purrr,
-  lubridate,
-  magrittr, 
+Suggests: 
   assertthat,
-  stringr,
-  stringi,
-  fontcm, 
-  extrafont,
-  ggplot2, 
-  ggthemes, 
+  data.table,
+  data.tree,
   gender, 
   genderdata, 
-  grid, 
-  gridExtra, 
   grDevices,
+  gridExtra, 
+  lubridate,
   scales,
-  data.tree,
-  data.table,
-  wru,
-  RSelenium
+  testthat,
+  wru
+RoxygenNote: 7.1.0
+Depends: R (>= 2.14.0)
+Imports:
+  dplyr, 
+  extrafont,
+  fontcm, 
+  ggplot2, 
+  ggthemes, 
+  grid, 
+  purrr,
+  readr,
+  rlang, 
+  RSelenium,
+  stats, 
+  stringr,
+  stringi,
+  tidyr,
+  utils
 Remotes: ropensci/genderdata

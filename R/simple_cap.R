@@ -7,8 +7,10 @@
 
 #' @param x This is a character or a vector of characters
 #' @return A character or a vector of characters with first char capitalized.
+#'
 #' @examples
 #' simple_cap("attila marcel")
+#'
 #' @export
 
 simple_cap <- function(x) {

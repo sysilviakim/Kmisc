@@ -22,4 +22,5 @@ https://stackoverflow.com/questions/18142117/how-to-replace-nan-value-with-zero-
 \examples{
 df <- data.frame(a = c(1, 2), b = c(NaN, 3))
 nan_replace(df)
+
 }

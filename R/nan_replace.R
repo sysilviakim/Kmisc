@@ -8,9 +8,11 @@
 #' @param df Dataframe to be checked for NaN values
 #' @param replace Whether to replace NaN values.
 #' @param value Value to replace NaN with.
+#'
 #' @examples
 #' df <- data.frame(a = c(1, 2), b = c(NaN, 3))
 #' nan_replace(df)
+#'
 #' @export
 
 nan_replace <- function(df, replace = TRUE, value = 0) {

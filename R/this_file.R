@@ -4,10 +4,10 @@
 #' The code is from steamer25's StackOverflow post
 #' here: https://stackoverflow.com/questions/1815606/rscript-determine-path-of-the-executing-script
 #' This enables both sourcing and Rscript-ing.
-
+#'
 #' @export
 
-thisFile <- function() {
+this_file <- function() {
   cmdArgs <- commandArgs(trailingOnly = FALSE)
   needle <- "--file="
   match <- grep(needle, cmdArgs)

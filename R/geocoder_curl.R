@@ -102,8 +102,6 @@ geocoder_curl_input <- function(df,
 #' @importFrom dplyr left_join
 #' @importFrom dplyr mutate
 #' @importFrom dplyr "%>%"
-#' @importFrom magrittr "%<>%"
-#' @importFrom assertthat assert_that
 #'
 #' @param df Input dataframe.
 #' @param output_path File path for output text files.
@@ -141,7 +139,7 @@ geocoder_curl_output <- function(df,
       out <- bind_rows(out, temp)
     }
   }
-  out %<>%
+  out <- out %>%
     mutate(
       row = as.integer(row),
       tiger = as.integer(tiger),
@@ -163,7 +161,7 @@ geocoder_curl_output <- function(df,
   ### 10    County              County FIPS Code
   ### 11    Census Tract        Census Tract Code
   ### 12    Census Block        Census Block Code
-  assert_that(nrow(anti_join(df, out)) == 0)
+  assertthat::assert_that(nrow(anti_join(df, out)) == 0)
   print(paste0(
     "Match rate is for benchmark ", benchmark, " and vintage ", vintage, ": "
   ))
@@ -180,7 +178,7 @@ geocoder_curl_output <- function(df,
     )
   x[[paste0("unmatched_", benchmark_abbr)]] <- left_join(df, out) %>%
     filter(!(!is.na(match) & match == "Match"))
-  assert_that(nrow(x[[1]]) + nrow(x[[2]]) == nrow(df))
+  assertthat::assert_that(nrow(x[[1]]) + nrow(x[[2]]) == nrow(df))
   return(x)
 }
 

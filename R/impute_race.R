@@ -10,8 +10,6 @@
 #' @importFrom dplyr ungroup
 #' @importFrom dplyr rename_all
 #' @importFrom stringr str_pad
-#' @importFrom magrittr "%<>%"
-#' @importFrom wru predict_race
 #'
 #' @param df Dataframe prepped for wru::predict_race.
 #' @param census Census object.
@@ -69,13 +67,13 @@ impute_race <- function(df,
         race = ifelse(is.na(race), "others", race)
       )
     if (keep_probs) {
-      out %<>% select(
+      out <- out %>% select(
         !!id, race, !!paste0("pred.", race_cols)
       ) %>%
         rename_all(paste0, tag) %>%
         rename(!!as.name(id) := !!as.name(paste0(id, tag)))
     } else {
-      out %<>% select(!!id, race) %>%
+      out <- out %>% select(!!id, race) %>%
         rename_all(paste0, tag) %>%
         rename(!!as.name(id) := !!as.name(paste0(id, tag)))
     }
@@ -90,12 +88,12 @@ impute_race <- function(df,
     )
 
   if (!is.null(block)) {
-    pre_wru %<>% mutate(
+    pre_wru <- pre_wru %>% mutate(
       block = str_pad(block, width = 4, pad = "0"),
       tract = str_pad(tract, width = 6, pad = "0"),
       county = str_pad(county, width = 3, pad = "0")
     )
-    out_race_block <- predict_race(
+    out_race_block <- wru::predict_race(
       voter.file = pre_wru %>% filter(!is.na(block)),
       census.data = census, census.geo = "block",
       ...
@@ -103,15 +101,15 @@ impute_race <- function(df,
       prob_to_factor(
         ., id = id, race_cols = race_cols, keep_probs = keep_probs, tag = ".b"
       )
-    df %<>% left_join(., out_race_block)
+    df <- df %>% left_join(., out_race_block)
   }
 
   if (!is.null(tract)) {
-    pre_wru %<>% mutate(
+    pre_wru <- pre_wru %>% mutate(
       tract = str_pad(tract, width = 6, pad = "0"),
       county = str_pad(county, width = 3, pad = "0")
     )
-    out_race_tract <- predict_race(
+    out_race_tract <- wru::predict_race(
       voter.file = pre_wru %>% filter(!is.na(tract)),
       census.data = census, census.geo = "tract",
       ...
@@ -119,12 +117,13 @@ impute_race <- function(df,
       prob_to_factor(
         ., id = id, race_cols = race_cols, keep_probs = keep_probs, tag = ".t"
       )
-    df %<>% left_join(., out_race_tract)
+    df <- df %>% left_join(., out_race_tract)
   }
 
   if (!is.null(county)) {
-    pre_wru %<>% mutate(county = str_pad(county, width = 3, pad = "0"))
-    out_race_county <- predict_race(
+    pre_wru <- pre_wru %>%
+      mutate(county = str_pad(county, width = 3, pad = "0"))
+    out_race_county <- wru::predict_race(
       voter.file = pre_wru %>% select(-tract, -block),
       census.data = census, census.geo = "county",
       ...
@@ -132,7 +131,7 @@ impute_race <- function(df,
       prob_to_factor(
         ., id = id, race_cols = race_cols, keep_probs = keep_probs, tag = ".c"
       )
-    df %<>% left_join(., out_race_county)
+    df <- df %>% left_join(., out_race_county)
   }
 
   return(df)
