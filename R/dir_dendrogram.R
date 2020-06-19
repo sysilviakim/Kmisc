@@ -4,18 +4,18 @@
 #' dendrogram. The code is a variation of Tyler Rinker's StackOverflow post
 #' here: https://stackoverflow.com/questions/36094183/how-to-build-a-dendrogram-from-a-directory-tree
 #' Note that you can print everything by such as following:
-#' `print(dir_dendrogram(list.dirs()), limit = 300)``
+#' `print(dir_dendrogram(list.dirs()), limit = 300)`
 #'
 #' @importFrom stats na.omit
-#' @importFrom dplyr rbind_all
+#' @importFrom dplyr bind_rows
 #'
 #' @param path List of directories to be converted to a dendrogram
-#' 
+#'
 #' @export
 
 dir_dendrogram <- function(path) {
   x <- lapply(strsplit(path, "/"), function(z) as.data.frame(t(z)))
-  x <- suppressWarnings(rbind_all(x))
+  x <- suppressWarnings(bind_rows(x))
   x$pathString <- apply(
     x, 1, function(x) paste(trimws(na.omit(x)), collapse = "/")
   )

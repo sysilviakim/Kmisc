@@ -3,7 +3,7 @@ Type: Package
 Title: Kim Miscellaneous
 Version: 0.1.0
 Author: Seo-young Silvia Kim
-Maintainer: Seo-young Silvia Kim <sskim@caltech.edu>
+Maintainer: Seo-young Silvia Kim <sskim.research@gmail.com>
 Description: This package is an assortment of functions that aid R programming.
 License: GPL (>= 2)
 Encoding: UTF-8

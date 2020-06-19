@@ -14,5 +14,5 @@ This function takes a vector of directory structures and turns it into a
 dendrogram. The code is a variation of Tyler Rinker's StackOverflow post
 here: https://stackoverflow.com/questions/36094183/how-to-build-a-dendrogram-from-a-directory-tree
 Note that you can print everything by such as following:
-`print(dir_dendrogram(list.dirs()), limit = 300)``
+`print(dir_dendrogram(list.dirs()), limit = 300)`
 }
