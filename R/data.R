@@ -34,3 +34,15 @@
 #' }
 "ex_addr"
 
+#' State Names and Abbreviations Dataframe
+#'
+#' A dataset that puts state.abb and state.names together into a single
+#' dataframe, along with DC.
+#'
+#' @format A dataframe with 51 rows and 2 variables:
+#' \describe{
+#'   \item{abb}{State Abbreviations}
+#'   \item{names}{State Names}
+#' }
+"state_df"
+
