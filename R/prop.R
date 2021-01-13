@@ -5,12 +5,16 @@
 #'
 #' @param df Input dataframe.
 #' @param vars Variables to be put into \code{table}.
-#' @param digits Digits under the decimal point to show.
-#' Defaults to 1.
+#' @param digit Digits under the decimal point to show. Defaults to 1.
+#' @param sort Whether to sort the table. Defaults to NULL.
+#' @param head Whether to restrict the table to the top few observations.
+#' Defaults to NULL.
+#' @param print Whether to only print the output, so that no quotes are seen
+#' after applying \code{formatC}.
 #'
 #' @export
 
-prop <- function(df, vars, digits = 1) {
+prop <- function(df, vars, digit = 1, sort = NULL, head = NULL, print = TRUE) {
   if (length(vars) > 2) {
     stop("Too many variables.")
   }
@@ -18,23 +22,23 @@ prop <- function(df, vars, digits = 1) {
     stop("Invalid vars argument.")
   }
   if (length(vars) == 1) {
-    print(
-      formatC(
-        prop.table(table(df[[vars]], dnn = vars)) * 100,
-        format = "f", digits = digits
-      ),
-      quote = FALSE
-    )
+    temp <- prop.table(table(df[[vars]], dnn = vars)) * 100
   }
   if (length(vars) == 2) {
-    print(
-      formatC(
-        prop.table(
-          table(df[[vars[1]]], df[[vars[2]]], dnn = vars)
-        ) * 100,
-        format = "f", digits = digits
-      ),
-      quote = FALSE
-    )
+    temp <- prop.table(table(df[[vars[1]]], df[[vars[2]]], dnn = vars)) * 100
+  }
+
+  if (!is.null(sort)) {
+    temp <- sort(temp, decreasing = sort)
+  }
+  if (!is.null(head)) {
+    temp <- head(temp, head)
+  }
+
+  temp <- formatC(temp, format = "f", digits = digit)
+  if (print) {
+    print(temp, quote = FALSE)
+  } else {
+    return(temp)
   }
 }

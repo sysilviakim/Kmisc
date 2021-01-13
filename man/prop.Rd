@@ -4,15 +4,22 @@
 \alias{prop}
 \title{Create Percentage Tables}
 \usage{
-prop(df, vars, digits = 1)
+prop(df, vars, digit = 1, sort = NULL, head = NULL, print = TRUE)
 }
 \arguments{
 \item{df}{Input dataframe.}
 
 \item{vars}{Variables to be put into \code{table}.}
 
-\item{digits}{Digits under the decimal point to show.
-Defaults to 1.}
+\item{digit}{Digits under the decimal point to show. Defaults to 1.}
+
+\item{sort}{Whether to sort the table. Defaults to NULL.}
+
+\item{head}{Whether to restrict the table to the top few observations.
+Defaults to NULL.}
+
+\item{print}{Whether to only print the output, so that no quotes are seen
+after applying \code{formatC}.}
 }
 \description{
 This function takes a dataframe and creates a table in percentages.
