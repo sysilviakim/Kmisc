@@ -37,12 +37,19 @@
 #' State Names and Abbreviations Dataframe
 #'
 #' A dataset that puts state.abb and state.names together into a single
-#' dataframe, along with DC.
+#' dataframe, along with DC. This also carries several datasets' codes,
+#' including FIPS, two different definitions of the South, and at-large
+#' districts by the 2010 census.
 #'
-#' @format A dataframe with 51 rows and 2 variables:
+#' @format A dataframe with 51 rows and 9 variables:
 #' \describe{
-#'   \item{abb}{State Abbreviations}
-#'   \item{names}{State Names}
+#'   \item{stabb}{State abbreviations}
+#'   \item{stname}{State names}
+#'   \item{stfips}{FIPS code}
+#'   \item{sticpsr}{ICPSR code}
+#'   \item{strevsh}{Alphabetical code}
+#'   \item{south_full}{Definition of the Southern part of the United States}
+#'   \item{south}{The confederate states}
+#'   \item{al_2010}{At-large districts by the 2010 census}
 #' }
 "state_df"
-
