@@ -58,7 +58,7 @@ col_mismatch <- function(df, cols = NULL, ref = NULL) {
 
           # If only one column, can be merged into single column (all redun.)
           if (ncol(temp) > 1) {
-            combinat_cols <- combinations(
+            combinat_cols <- gtools::combinations(
               n = ncol(temp), r = 2, v = names(temp)
             )
 
