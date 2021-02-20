@@ -1,10 +1,11 @@
 Package: Kmisc
 Type: Package
 Title: Kim Miscellaneous
-Version: 0.1.0
-Author: Seo-young Silvia Kim
-Maintainer: Seo-young Silvia Kim <sskim.research@gmail.com>
-Description: This package is an assortment of functions that aid R programming.
+Version: 0.2.0
+Authors@R: person("Seo-young Silvia", "Kim", 
+  email = "sskim.research@gmail.com",
+  role = c("aut", "cre"))
+Description: Assortment of functions that aid R programming.
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
@@ -23,7 +24,7 @@ Suggests:
   testthat,
   wru
 RoxygenNote: 7.1.1
-Depends: R (>= 2.14.0)
+Depends: R (>= 3.5.0)
 Imports:
   dplyr, 
   extrafont,
