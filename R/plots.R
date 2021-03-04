@@ -185,7 +185,10 @@ plot_nogrid <- function(p) {
 #' @importFrom grid unit.c
 #'
 #' @param ... A series of plots to share a common legend
-#' @param ncol Number of columns of the arranged plots
+#' @param list A list of plots to share a common legend.
+#' Defaults to NULL. If list is specified, ellipsis argument is ignored.
+#' @param ncol Number of columns of the arranged plots.
+#' Defaults to NULL, in which case it is the length of the list.
 #' @param nrow Number of rows of the arranged plots
 #' @param position Position of the legend
 #' @param legend If legend is supplied from outside. Defaults to NULL.
@@ -195,12 +198,22 @@ plot_nogrid <- function(p) {
 #' @export
 
 grid_arrange_shared_legend <- function(...,
-                                       ncol = length(list(...)),
+                                       list = NULL,
+                                       ncol = NULL,
                                        nrow = 1,
                                        position = c("bottom", "right"),
                                        legend = NULL,
                                        legend_plot = NULL) {
-  plots <- list(...)
+  if (!is.null(list)) {
+    plots <- list
+  } else {
+    plots <- list(...)
+  }
+
+  if (is.null(ncol)) {
+    ncol <- length(plots)
+  }
+
   position <- match.arg(position)
   g <- ggplotGrob(plots[[1]] + theme(legend.position = position))$grobs
   if (!is.null(legend_plot)) {

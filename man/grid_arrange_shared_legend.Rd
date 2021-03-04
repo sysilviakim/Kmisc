@@ -6,7 +6,8 @@
 \usage{
 grid_arrange_shared_legend(
   ...,
-  ncol = length(list(...)),
+  list = NULL,
+  ncol = NULL,
   nrow = 1,
   position = c("bottom", "right"),
   legend = NULL,
@@ -16,7 +17,11 @@ grid_arrange_shared_legend(
 \arguments{
 \item{...}{A series of plots to share a common legend}
 
-\item{ncol}{Number of columns of the arranged plots}
+\item{list}{A list of plots to share a common legend.
+Defaults to NULL. If list is specified, ellipsis argument is ignored.}
+
+\item{ncol}{Number of columns of the arranged plots.
+Defaults to NULL, in which case it is the length of the list.}
 
 \item{nrow}{Number of rows of the arranged plots}
 
