@@ -4,7 +4,15 @@
 \alias{prop}
 \title{Create Percentage Tables}
 \usage{
-prop(df, vars, digit = 1, sort = NULL, head = NULL, print = TRUE)
+prop(
+  df,
+  vars,
+  digit = 1,
+  sort = NULL,
+  head = NULL,
+  print = TRUE,
+  useNA = "ifany"
+)
 }
 \arguments{
 \item{df}{Input dataframe.}
@@ -20,6 +28,9 @@ Defaults to NULL.}
 
 \item{print}{Whether to only print the output, so that no quotes are seen
 after applying \code{formatC}.}
+
+\item{useNA}{useNA which is an argument for \code{table}.
+Defaults to "ifany."}
 }
 \description{
 This function takes a dataframe and creates a table in percentages.
