@@ -30,7 +30,7 @@ pdf_varimp <- function(x, filename, labels = NULL, font = NULL, n_max = 10,
   Overall <- NULL
   if (is.null(font)) font <- "Kievit Offc Pro"
   set.seed(100)
-  temp <- caret::varImp
+  temp <- caret::varImp(x)
   ## Only actually important variables. Not zeros.
   p <- ggplot(
     temp,
