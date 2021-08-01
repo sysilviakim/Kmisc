@@ -243,3 +243,82 @@ grid_arrange_shared_legend <- function(...,
   grid.draw(combined)
   invisible(combined)
 }
+
+#' Common-Legend Arrangement of Plots
+#'
+#' This function creates a common legend for the given pots to share
+#' This was taken from the following link:
+#' https://github.com/tidyverse/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs
+#'
+#' @importFrom ggplot2 theme
+#' @importFrom ggplot2 element_blank
+#' @importFrom grid textGrob
+#'
+#' @param ... A series of plots to share common axes.
+#' @param list A list of plots to share common axes.
+#' Defaults to NULL. If list is specified, ellipsis argument is ignored.
+#' @param ncol Number of columns of the arranged plots.
+#' Defaults to NULL, in which case it is the length of the list.
+#' @param nrow Number of rows of the arranged plots
+#' @param widths Width to control the plot size.
+#' @param title Common title to plots.
+#' @param xlab Common x-axis title to plots.
+#' @param ylab Common y-axis title to plots.
+#'
+#' @export
+
+grid_arrange_shared_axes <- function(...,
+                                     list = NULL,
+                                     ncol = NULL,
+                                     nrow = 1,
+                                     widths = c(6/11, 5/11),
+                                     title = NULL,
+                                     xlab = NULL,
+                                     ylab = NULL) {
+  if (!is.null(list)) {
+    plots <- list
+  } else {
+    plots <- list(...)
+  }
+
+  if (is.null(ncol)) {
+    ncol <- length(plots)
+  }
+  if (is.null(xlab)) {
+    xlab <- plots[[1]]$labels$x
+  }
+  if (is.null(ylab)) {
+    ylab <- plots[[1]]$labels$y
+  }
+
+  if (length(plots) != 4) {
+    stop("Experimental function to take only 4 plots. Will expand later.")
+  }
+
+  p1 <- plots[[1]] +
+    theme(
+      axis.title = element_blank(),
+      axis.text.x = element_blank(),
+      axis.ticks.x = element_blank()
+    )
+  p2 <- plots[[2]] +
+    theme(
+      axis.title = element_blank(),
+      axis.text = element_blank(),
+      axis.ticks = element_blank()
+    )
+  p3 <- plots[[3]] +
+    theme(axis.title = element_blank())
+  p4 <- plots[[4]] +
+    theme(
+      axis.title = element_blank(),
+      axis.text.y = element_blank(),
+      axis.ticks.y = element_blank()
+    )
+  gridExtra::grid.arrange(
+    p1, p2, p3, p4,
+    widths = widths,
+    bottom = textGrob(xlab),
+    left = textGrob(ylab, rot = 90)
+  )
+}
