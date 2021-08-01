@@ -12,7 +12,8 @@ grid_arrange_shared_axes(
   widths = c(6/11, 5/11),
   title = NULL,
   xlab = NULL,
-  ylab = NULL
+  ylab = NULL,
+  fontfamily = "CM Roman"
 )
 }
 \arguments{
@@ -28,11 +29,14 @@ Defaults to NULL, in which case it is the length of the list.}
 
 \item{widths}{Width to control the plot size.}
 
-\item{title}{Common title to plots.}
+\item{title}{Plot-specific titles. Defaults to NULL.}
 
-\item{xlab}{Common x-axis title to plots.}
+\item{xlab}{Common x-axis title to plots. Defaults to first plot's.}
 
-\item{ylab}{Common y-axis title to plots.}
+\item{ylab}{Common y-axis title to plots. Defaults to first plot's.}
+
+\item{fontfamily}{Font family to be used in common axes labels.
+Defaults to CM Roman.}
 }
 \description{
 This function creates a common legend for the given pots to share
