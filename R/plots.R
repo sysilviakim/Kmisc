@@ -19,9 +19,9 @@
 #'
 #' @examples
 #' library(ggplot2)
-#' p <- ggplot(diamonds, aes(depth, colour = cut)) + geom_density()
+#' p <- ggplot(diamonds, aes(depth, colour = cut)) +
+#'   geom_density()
 #' png_default(p)
-#'
 #' @export
 
 png_default <- function(p,
@@ -75,7 +75,8 @@ png_default <- function(p,
 #' @keywords plot
 #' @examples
 #' library(ggplot2)
-#' p <- ggplot(diamonds, aes(depth, colour = cut)) + geom_density()
+#' p <- ggplot(diamonds, aes(depth, colour = cut)) +
+#'   geom_density()
 #' pdf_default(p)
 #' @export
 
@@ -111,7 +112,8 @@ pdf_default <- function(p, CMRoman = NULL) {
 #'
 #' @examples
 #' library(ggplot2)
-#' p <- ggplot(diamonds, aes(depth, colour = cut)) + geom_density() +
+#' p <- ggplot(diamonds, aes(depth, colour = cut)) +
+#'   geom_density() +
 #'   ggtitle("Diamonds")
 #' plot_notitle(p)
 #' @export
@@ -138,7 +140,8 @@ plot_notitle <- function(p) {
 #'
 #' @examples
 #' library(ggplot2)
-#' p <- ggplot(diamonds, aes(depth, colour = cut)) + geom_density()
+#' p <- ggplot(diamonds, aes(depth, colour = cut)) +
+#'   geom_density()
 #' plot_nolegend(p)
 #' @export
 
@@ -278,7 +281,7 @@ grid_arrange_shared_axes <- function(...,
                                      list = NULL,
                                      ncol = NULL,
                                      nrow = 1,
-                                     widths = c(6/11, 5/11),
+                                     widths = NULL,
                                      title = NULL,
                                      xlab = NULL,
                                      ylab = NULL,
@@ -290,7 +293,7 @@ grid_arrange_shared_axes <- function(...,
   }
 
   if (is.null(ncol)) {
-    ncol <- length(plots)
+    ncol <- min(length(plots), length(plots) / nrow)
   }
   if (is.null(xlab)) {
     xlab <- plots[[1]]$labels$x
@@ -298,41 +301,103 @@ grid_arrange_shared_axes <- function(...,
   if (is.null(ylab)) {
     ylab <- plots[[1]]$labels$y
   }
-
-  if (length(plots) != 4) {
-    stop("Experimental function to take only 4 plots. Will expand later.")
+  if (is.null(widths)) {
+    if (ncol == 2) {
+      widths <- c(6 / 11, 5 / 11)
+    } else if (ncol == 1) {
+      widths <- 1
+    } else {
+      widths <- c(6 / (ncol * 5 + 1), rep(5 / (ncol * 5 + 1), ncol - 1))
+    }
   }
 
-  p1 <- pdf_default(plots[[1]]) +
-    theme(
-      axis.title = element_blank(),
-      axis.text.x = element_blank(),
-      axis.ticks.x = element_blank()
-    ) +
-    ggtitle(title[1])
-  p2 <- pdf_default(plots[[2]]) +
-    theme(
-      axis.title = element_blank(),
-      axis.text.x = element_blank(),
-      axis.ticks.x = element_blank(),
-      axis.text.y = element_blank(),
-      axis.ticks.y = element_blank()
-    ) +
-    ggtitle(title[2])
-  p3 <- pdf_default(plots[[3]]) +
-    theme(axis.title = element_blank()) +
-    ggtitle(title[3])
-  p4 <- pdf_default(plots[[4]]) +
-    theme(
-      axis.title = element_blank(),
-      axis.text.y = element_blank(),
-      axis.ticks.y = element_blank()
-    ) +
-    ggtitle(title[4])
-  gridExtra::grid.arrange(
-    p1, p2, p3, p4,
-    widths = widths,
-    bottom = textGrob(xlab, gp = gpar(fontfamily = fontfamily)),
-    left = textGrob(ylab, rot = 90, gp = gpar(fontfamily = fontfamily))
+  lplots <- length(plots)
+
+  plots <- plots %>%
+    map(
+      ~ pdf_default(.x) +
+        theme(
+          axis.title.x = element_blank(),
+          axis.title.y = element_blank()
+        )
+    )
+  if (nrow == 1) {
+    ## Edge case: nrow == 1
+    for (i in seq(2, lplots)) {
+      plots[[i]] <- plots[[i]] +
+        theme(
+          axis.text.y = element_blank(),
+          axis.ticks.y = element_blank()
+        ) +
+        ggtitle(title[i])
+    }
+    plots[[1]] <- plots[[1]] +
+      ggtitle(title[1])
+  } else if (ncol == 1) {
+    ## Edge case: ncol == 1
+    for (i in seq(1, lplots - 1)) {
+      plots[[i]] <- plots[[i]] +
+        theme(
+          axis.text.x = element_blank(),
+          axis.ticks.x = element_blank()
+        ) +
+        ggtitle(title[i])
+    }
+    plots[[lplots]] <- plots[[lplots]] +
+      theme(axis.title.x = element_blank()) +
+      ggtitle(title[lplots])
+  } else {
+    ## All else normal rectangular cases
+    for (i in seq(1, lplots - ncol, by = ncol)) {
+      ## Leftmost column: delete x text except for last row
+      plots[[i]] <- plots[[i]] +
+        theme(
+          axis.text.x = element_blank(),
+          axis.ticks.x = element_blank()
+        ) +
+        ggtitle(title[i])
+    }
+    for (i in setdiff(
+      seq(1, lplots),
+      c(seq(1, lplots - 1, by = ncol), seq(lplots - ncol + 1, lplots))
+    )) {
+      ## Inner rectangle: delete everything
+      plots[[i]] <- plots[[i]] +
+        theme(
+          axis.title = element_blank(),
+          axis.text.x = element_blank(),
+          axis.ticks.x = element_blank(),
+          axis.text.y = element_blank(),
+          axis.ticks.y = element_blank()
+        ) +
+        ggtitle(title[i])
+    }
+    for (i in c(lplots - ncol + 1)) {
+      ## Bottom leftmost piece:
+      plots[[i]] <- plots[[i]] +
+        theme(axis.title = element_blank()) +
+        ggtitle(title[i])
+    }
+    for (i in seq(lplots - ncol + 2, lplots)) {
+      plots[[i]] <- plots[[i]] +
+        theme(
+          axis.title = element_blank(),
+          axis.text.y = element_blank(),
+          axis.ticks.y = element_blank()
+        ) +
+        ggtitle(title[i])
+    }
+  }
+  ## https://stackoverflow.com/questions/10706753/
+  do.call(
+    "grid.arrange",
+    list(
+      grobs = plots,
+      widths = widths,
+      nrow = nrow,
+      ncol = ncol,
+      bottom = textGrob(xlab, gp = gpar(fontfamily = fontfamily)),
+      left = textGrob(ylab, rot = 90, gp = gpar(fontfamily = fontfamily))
+    )
   )
 }

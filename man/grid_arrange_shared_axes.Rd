@@ -9,7 +9,7 @@ grid_arrange_shared_axes(
   list = NULL,
   ncol = NULL,
   nrow = 1,
-  widths = c(6/11, 5/11),
+  widths = NULL,
   title = NULL,
   xlab = NULL,
   ylab = NULL,
