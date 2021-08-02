@@ -14,6 +14,7 @@ This is a function that strips the plot of its legend.
 }
 \examples{
 library(ggplot2)
-p <- ggplot(diamonds, aes(depth, colour = cut)) + geom_density()
+p <- ggplot(diamonds, aes(depth, colour = cut)) +
+  geom_density()
 plot_nolegend(p)
 }

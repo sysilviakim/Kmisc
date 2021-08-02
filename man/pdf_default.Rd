@@ -19,7 +19,8 @@ Rstudio plot pane, but will be correctly input in the resulting pdf file.
 }
 \examples{
 library(ggplot2)
-p <- ggplot(diamonds, aes(depth, colour = cut)) + geom_density()
+p <- ggplot(diamonds, aes(depth, colour = cut)) +
+  geom_density()
 pdf_default(p)
 }
 \keyword{plot}

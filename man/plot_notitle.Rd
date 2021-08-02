@@ -15,7 +15,8 @@ including axis titles and legend titles.
 }
 \examples{
 library(ggplot2)
-p <- ggplot(diamonds, aes(depth, colour = cut)) + geom_density() +
+p <- ggplot(diamonds, aes(depth, colour = cut)) +
+  geom_density() +
   ggtitle("Diamonds")
 plot_notitle(p)
 }
