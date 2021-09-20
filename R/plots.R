@@ -258,6 +258,7 @@ grid_arrange_shared_legend <- function(...,
 #' @importFrom ggplot2 ggtitle
 #' @importFrom grid textGrob
 #' @importFrom grid gpar
+#' @importFrom gridExtra grid.arrange
 #' @import fontcm
 #' @importFrom extrafont font_install
 #' @importFrom extrafont loadfonts
@@ -274,6 +275,7 @@ grid_arrange_shared_legend <- function(...,
 #' @param ylab Common y-axis title to plots. Defaults to first plot's.
 #' @param fontfamily Font family to be used in common axes labels.
 #' Defaults to CM Roman.
+#' @param pdf_default Whether to apply pdf_default, which can reset `theme`.
 #'
 #' @export
 
@@ -285,7 +287,8 @@ grid_arrange_shared_axes <- function(...,
                                      title = NULL,
                                      xlab = NULL,
                                      ylab = NULL,
-                                     fontfamily = "CM Roman") {
+                                     fontfamily = "CM Roman",
+                                     pdf_default = TRUE) {
   if (!is.null(list)) {
     plots <- list
   } else {
@@ -313,14 +316,26 @@ grid_arrange_shared_axes <- function(...,
 
   lplots <- length(plots)
 
-  plots <- plots %>%
-    map(
-      ~ pdf_default(.x) +
-        theme(
-          axis.title.x = element_blank(),
-          axis.title.y = element_blank()
-        )
-    )
+  if (pdf_default) {
+    plots <- plots %>%
+      map(
+        ~ pdf_default(.x) +
+          theme(
+            axis.title.x = element_blank(),
+            axis.title.y = element_blank()
+          )
+      )
+  } else {
+    plots <- plots %>%
+      map(
+        ~ .x +
+          theme(
+            axis.title.x = element_blank(),
+            axis.title.y = element_blank()
+          )
+      )
+  }
+
   if (nrow == 1) {
     ## Edge case: nrow == 1
     for (i in seq(2, lplots)) {

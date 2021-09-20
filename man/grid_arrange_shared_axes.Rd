@@ -13,7 +13,8 @@ grid_arrange_shared_axes(
   title = NULL,
   xlab = NULL,
   ylab = NULL,
-  fontfamily = "CM Roman"
+  fontfamily = "CM Roman",
+  pdf_default = TRUE
 )
 }
 \arguments{
@@ -37,6 +38,8 @@ Defaults to NULL, in which case it is the length of the list.}
 
 \item{fontfamily}{Font family to be used in common axes labels.
 Defaults to CM Roman.}
+
+\item{pdf_default}{Whether to apply pdf_default, which can reset `theme`.}
 }
 \description{
 This function creates a common legend for the given pots to share
