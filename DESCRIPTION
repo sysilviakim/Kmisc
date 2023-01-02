@@ -42,4 +42,4 @@ Imports:
   stringi,
   tidyr,
   utils
-Remotes: ropensci/genderdata
+Remotes: lmullen/genderdata
