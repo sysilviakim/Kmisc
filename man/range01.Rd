@@ -4,10 +4,12 @@
 \alias{range01}
 \title{Rescale Numeric Vector to [0, 1] range}
 \usage{
-range01(x)
+range01(x, na.rm = FALSE)
 }
 \arguments{
 \item{x}{A numeric vector to be rescaled.}
+
+\item{na.rm}{A logical value indicating whether to remove NA values before computation. Default is FALSE.}
 }
 \value{
 A rescaled numeric vector.

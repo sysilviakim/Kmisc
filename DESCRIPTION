@@ -23,7 +23,7 @@ Suggests:
   testthat,
   wru,
   caret
-RoxygenNote: 7.1.1
+RoxygenNote: 7.3.2
 Depends: R (>= 3.5.0)
 Imports:
   dplyr, 
