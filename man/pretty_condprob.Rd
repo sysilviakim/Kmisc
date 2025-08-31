@@ -2,7 +2,7 @@
 % Please edit documentation in R/pretty_condprob.R
 \name{pretty_condprob}
 \alias{pretty_condprob}
-\title{Append Row Number as a Variable to a Dataframe}
+\title{Conditional probability Pr(A = A_val | B = B_val)}
 \usage{
 pretty_condprob(
   df,
@@ -10,34 +10,60 @@ pretty_condprob(
   A_val,
   B_var,
   B_val,
+  na_policy = "keep_all",
   output = "string",
   digits = 1,
   percent = TRUE
 )
 }
 \arguments{
-\item{df}{Input dataframe.}
+\item{df}{A data.frame or tibble containing variables \code{A_var} and \code{B_var}.}
 
-\item{A_var}{The A variable in "the conditional probability of A given B."}
+\item{A_var}{String. Name of the A variable.}
 
-\item{A_val}{Value of A variable in interest.}
+\item{A_val}{Scalar (may be \code{NA}). Target value of A for the numerator.}
 
-\item{B_var}{The B variable in "the conditional probability of A given B."}
+\item{B_var}{String. Name of the B variable.}
 
-\item{B_val}{Value of B variable in interest.}
+\item{B_val}{Scalar (may be \code{NA}). Conditioning value of B (defines the denominator set).}
 
-\item{output}{Whether to print a numeric number or a statement.
-If the argument is "string", the function prints a message containing
-the conditional probability.
-Defaults to "string."}
+\item{na_policy}{Character; one of \code{"keep_all"}, \code{"drop_A"}, \code{"drop_B"},
+\code{"drop_any"}, or \code{"drop_if_both"}. Short synonyms are accepted (case-insensitive):
+\itemize{
+  \item \code{"keep_all"}: keep all rows. Synonyms: \code{"keep"}, \code{"none"}, \code{"all"}.
+  \item \code{"drop_A"}: drop rows with A = NA. Synonyms: \code{"A"}.
+  \item \code{"drop_B"}: drop rows with B = NA. Synonyms: \code{"B"}.
+  \item \code{"drop_any"}: drop rows where either A or B is NA (complete cases).
+        Synonyms: \code{"any"}, \code{"complete"}, \code{"complete_cases"}, \code{"cc"}.
+  \item \code{"drop_if_both"}: drop rows only when both A and B are NA simultaneously.
+        Synonyms: \code{"pair"}, \code{"if_both"}, \code{"both"}.
+}}
 
-\item{digits}{The digit of the final output. Defaults to 1.}
+\item{output}{\code{"string"} to print a message; any other value returns the numeric probability.}
 
-\item{percent}{Whether to display the conditional probability in a
-percentage. Defaults to TRUE.#'}
+\item{digits}{Integer. Rounding for display. Default \code{1}.}
+
+\item{percent}{Logical. If \code{TRUE}, display as a percentage; else as a proportion. Default \code{TRUE}.}
+}
+\value{
+If \code{output != "string"}, a numeric probability. If \code{output == "string"},
+  prints a message and (invisibly) returns the numeric probability.
 }
 \description{
-This function takes a dataframe and adds a variable of row numbers.
-This is the simplest function that does not take into account any group
-structures.
+Compute the conditional probability of event A = A_val given B = B_val
+from a data frame. Missing values (NA) can be treated as valid categories
+or dropped according to the `na_policy` option.
+}
+\examples{
+df <- data.frame(A = c(1, 0, 1, NA, 0, NA), B = c("x", "x", "y", "y", NA, NA))
+
+pretty_condprob(df, "A", 1, "B", "x", na_policy = "keep_all")
+pretty_condprob(df, "A", NA, "B", "x", na_policy = "keep_all")
+
+# Default for treating NAs: keep all rows, NA is a valid outcome/condition
+pretty_condprob(df, "A", 1, "B", NA, na_policy = "keep_all")
+pretty_condprob(df, "A", 1, "B", NA, na_policy = "drop_A")
+pretty_condprob(df, "A", 1, "B", NA, na_policy = "drop_any")
+pretty_condprob(df, "A", 1, "B", NA, na_policy = "drop_if_both")
+
 }
