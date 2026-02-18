@@ -46,7 +46,7 @@ file_recent <- function(path_list,
             bind_cols(., file.info(.x)) %>%
             mutate(
               max_mtime = (mtime == max(mtime)),
-              check = (mtime + hours(1) > Sys.time())
+              check = (mtime + 3600 > Sys.time())
             )
         }
       }
