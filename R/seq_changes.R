@@ -34,7 +34,7 @@ seq_changes <- function(x, names = TRUE, sub_str = NULL, len = 2, gap = 15) {
     }
   }
   x <- unlist(x)
-  cid <- data.table::rleid(x)
+  cid <- with(rle(x), rep(seq_along(lengths), lengths))
   temp <- lapply(unique(cid), function(x) cid == x)
   temp <- lapply(temp, function(x) min(which(x == TRUE))) %>% unlist()
   max_nchar <- max(unlist(lapply(x[temp], nchar)), na.rm = TRUE)
