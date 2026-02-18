@@ -85,6 +85,8 @@ clean_vars <- function(df,
       }
     }
     if (!is.null(varnames_date)) {
+      if (!requireNamespace("lubridate", quietly = TRUE))
+        stop("Package 'lubridate' is required for date parsing. Install it with install.packages('lubridate').")
       for (x in varnames_date) {
         output[[x]] <-
           as.Date(lubridate::parse_date_time(output[[x]], date_order))

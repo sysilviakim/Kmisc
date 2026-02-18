@@ -5,14 +5,14 @@
 #' This helps switch between window handles when using RSelenium.
 #' Call such as `remDr$getWindowHandles()[[1]]` and so on.
 
-#' @import RSelenium
-#'
 #' @param remDr `remoteDriver` object created from RSelenium `rsDriver`.
 #' @param windowID ID of the window handle to switch to.
 #'
 #' @export
 
 selenium_switch <- function(remDr, windowID) {
+  if (!requireNamespace("RSelenium", quietly = TRUE))
+    stop("Package 'RSelenium' is required for this function. Install it with install.packages('RSelenium').")
   qpath <- sprintf(
     "%s/session/%s/window", remDr$serverURL,
     remDr$sessionInfo[["id"]]

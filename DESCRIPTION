@@ -9,18 +9,16 @@ Description: Assortment of functions that aid R programming.
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
-Suggests: 
-  assertthat,
-  data.table,
+Suggests:
   data.tree,
-  gender, 
-  genderdata, 
+  gender,
+  genderdata,
   grDevices,
-  gtools,
-  tidyselect,
   lubridate,
+  RSelenium,
   scales,
   testthat,
+  tidyselect,
   wru,
   caret
 RoxygenNote: 7.3.2
@@ -35,9 +33,8 @@ Imports:
   gridExtra,
   purrr,
   readr,
-  rlang, 
-  RSelenium,
-  stats, 
+  rlang,
+  stats,
   stringr,
   stringi,
   tidyr,
