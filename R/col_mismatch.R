@@ -100,6 +100,8 @@ col_mismatch <- function(df, cols = NULL, ref = NULL) {
 }
 
 mismatch_2cols <- function(df, ref, x, y) {
+  if (!requireNamespace("tidyselect", quietly = TRUE))
+    stop("Package 'tidyselect' is required for this function. Install it with install.packages('tidyselect').")
   df %>%
     select(tidyselect::any_of(c(ref, x, y))) %>%
     filter(

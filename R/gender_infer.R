@@ -28,6 +28,8 @@ gender_mutate_df <- function(df,
                              years = c(1932, 2012),
                              method = "ssa",
                              countries = "United States") {
+  if (!requireNamespace("gender", quietly = TRUE))
+    stop("Package 'gender' is required for this function. Install it with install.packages('gender').")
   if (!is.data.frame(df)) {
     stop("The input is not a dataframe.")
   }

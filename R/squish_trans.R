@@ -13,6 +13,8 @@
 #' @export
 
 squish_trans <- function(from, to, factor) {
+  if (!requireNamespace("scales", quietly = TRUE))
+    stop("Package 'scales' is required for this function. Install it with install.packages('scales').")
   trans <- function(x) {
     # get indices for the relevant regions
     isq <- x > from & x < to

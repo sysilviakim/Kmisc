@@ -14,6 +14,8 @@
 #' @export
 
 dir_dendrogram <- function(path) {
+  if (!requireNamespace("data.tree", quietly = TRUE))
+    stop("Package 'data.tree' is required for this function. Install it with install.packages('data.tree').")
   x <- lapply(strsplit(path, "/"), function(z) as.data.frame(t(z)))
   x <- suppressWarnings(bind_rows(x))
   x$pathString <- apply(

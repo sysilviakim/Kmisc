@@ -446,6 +446,8 @@ grid_arrange_shared_axes <- function(...,
 
 pdf_varimp <- function(x, filename, labels = NULL, font = NULL, n_max = 10,
                        size = 12, width = 8, height = 4, seed = 100) {
+  if (!requireNamespace("caret", quietly = TRUE))
+    stop("Package 'caret' is required for this function. Install it with install.packages('caret').")
   Overall <- NULL
   if (is.null(font)) font <- "Kievit Offc Pro"
   set.seed(seed)

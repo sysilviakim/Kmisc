@@ -35,6 +35,8 @@ impute_race <- function(df,
                         id = "lVoterUniqueID",
                         keep_probs = FALSE,
                         ...) {
+  if (!requireNamespace("wru", quietly = TRUE))
+    stop("Package 'wru' is required for this function. Install it with install.packages('wru').")
   . <- race <- NULL
 
   if ("race" %in% names(df)) {
